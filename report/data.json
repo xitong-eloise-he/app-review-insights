@@ -1,0 +1,1640 @@
+{
+ "apps": [
+  {
+   "app": "babbel",
+   "reviews": 6000,
+   "avg_stars": 3.270166666666667,
+   "one_star": 0.279,
+   "first": "2024-08-08",
+   "last": "2026-11-23"
+  },
+  {
+   "app": "busuu",
+   "reviews": 6000,
+   "avg_stars": 4.282,
+   "one_star": 0.0865,
+   "first": "2025-09-13",
+   "last": "2026-11-23"
+  },
+  {
+   "app": "duolingo",
+   "reviews": 150000,
+   "avg_stars": 4.474473333333333,
+   "one_star": 0.05908,
+   "first": "2026-07-14",
+   "last": "2026-11-23"
+  },
+  {
+   "app": "memrise",
+   "reviews": 6000,
+   "avg_stars": 3.5171666666666668,
+   "one_star": 0.2618333333333333,
+   "first": "2024-01-07",
+   "last": "2026-11-23"
+  },
+  {
+   "app": "speak",
+   "reviews": 6000,
+   "avg_stars": 4.464333333333333,
+   "one_star": 0.08133333333333333,
+   "first": "2025-07-01",
+   "last": "2026-11-23"
+  }
+ ],
+ "weekly": [
+  {
+   "week": "2026-07-13",
+   "n": 6607,
+   "avg": 4.4695,
+   "one": 0.0575
+  },
+  {
+   "week": "2026-07-20",
+   "n": 9095,
+   "avg": 4.4829,
+   "one": 0.0581
+  },
+  {
+   "week": "2026-07-27",
+   "n": 8464,
+   "avg": 4.48,
+   "one": 0.0575
+  },
+  {
+   "week": "2026-08-03",
+   "n": 9077,
+   "avg": 4.4738,
+   "one": 0.0552
+  },
+  {
+   "week": "2026-08-10",
+   "n": 8664,
+   "avg": 4.5087,
+   "one": 0.051
+  },
+  {
+   "week": "2026-08-17",
+   "n": 8046,
+   "avg": 4.5066,
+   "one": 0.052
+  },
+  {
+   "week": "2026-08-24",
+   "n": 8800,
+   "avg": 4.4434,
+   "one": 0.0665
+  },
+  {
+   "week": "2026-08-31",
+   "n": 9497,
+   "avg": 4.4716,
+   "one": 0.061
+  },
+  {
+   "week": "2026-09-07",
+   "n": 8630,
+   "avg": 4.491,
+   "one": 0.0575
+  },
+  {
+   "week": "2026-09-14",
+   "n": 8082,
+   "avg": 4.5015,
+   "one": 0.0515
+  },
+  {
+   "week": "2026-09-21",
+   "n": 8598,
+   "avg": 4.513,
+   "one": 0.0523
+  },
+  {
+   "week": "2026-09-28",
+   "n": 7956,
+   "avg": 4.4964,
+   "one": 0.0554
+  },
+  {
+   "week": "2026-10-05",
+   "n": 7302,
+   "avg": 4.4643,
+   "one": 0.0633
+  },
+  {
+   "week": "2026-10-12",
+   "n": 7304,
+   "avg": 4.4804,
+   "one": 0.0581
+  },
+  {
+   "week": "2026-10-19",
+   "n": 7271,
+   "avg": 4.4485,
+   "one": 0.0623
+  },
+  {
+   "week": "2026-10-26",
+   "n": 6874,
+   "avg": 4.4601,
+   "one": 0.0628
+  },
+  {
+   "week": "2026-11-02",
+   "n": 6456,
+   "avg": 4.4569,
+   "one": 0.0658
+  },
+  {
+   "week": "2026-11-09",
+   "n": 6277,
+   "avg": 4.4598,
+   "one": 0.0621
+  },
+  {
+   "week": "2026-11-16",
+   "n": 6345,
+   "avg": 4.3729,
+   "one": 0.0794
+  }
+ ],
+ "versions": [
+  {
+   "vkey": "5.121",
+   "n": 1769,
+   "avg": 4.5738,
+   "one": 0.0339,
+   "first_seen": "2026-07-14",
+   "delta_vs_prev3": NaN
+  },
+  {
+   "vkey": "5.141",
+   "n": 2417,
+   "avg": 4.5395,
+   "one": 0.0389,
+   "first_seen": "2026-07-14",
+   "delta_vs_prev3": -0.0343
+  },
+  {
+   "vkey": "6.86",
+   "n": 497,
+   "avg": 4.5734,
+   "one": 0.0342,
+   "first_seen": "2026-07-14",
+   "delta_vs_prev3": 0.0168
+  },
+  {
+   "vkey": "6.87",
+   "n": 2508,
+   "avg": 4.5299,
+   "one": 0.0395,
+   "first_seen": "2026-07-14",
+   "delta_vs_prev3": -0.0323
+  },
+  {
+   "vkey": "6.88",
+   "n": 7708,
+   "avg": 4.5549,
+   "one": 0.0422,
+   "first_seen": "2026-07-14",
+   "delta_vs_prev3": 0.0073
+  },
+  {
+   "vkey": "6.89",
+   "n": 8415,
+   "avg": 4.5316,
+   "one": 0.043,
+   "first_seen": "2026-07-21",
+   "delta_vs_prev3": -0.0212
+  },
+  {
+   "vkey": "6.90",
+   "n": 7322,
+   "avg": 4.5731,
+   "one": 0.0382,
+   "first_seen": "2026-07-27",
+   "delta_vs_prev3": 0.0343
+  },
+  {
+   "vkey": "6.91",
+   "n": 7833,
+   "avg": 4.5239,
+   "one": 0.0421,
+   "first_seen": "2026-08-03",
+   "delta_vs_prev3": -0.0292
+  },
+  {
+   "vkey": "6.92",
+   "n": 8809,
+   "avg": 4.5617,
+   "one": 0.041,
+   "first_seen": "2026-08-11",
+   "delta_vs_prev3": 0.0188
+  },
+  {
+   "vkey": "6.93",
+   "n": 6449,
+   "avg": 4.5499,
+   "one": 0.0423,
+   "first_seen": "2026-08-17",
+   "delta_vs_prev3": -0.003
+  },
+  {
+   "vkey": "6.94",
+   "n": 6602,
+   "avg": 4.55,
+   "one": 0.0439,
+   "first_seen": "2026-08-26",
+   "delta_vs_prev3": 0.0048
+  },
+  {
+   "vkey": "6.95",
+   "n": 9056,
+   "avg": 4.5565,
+   "one": 0.0445,
+   "first_seen": "2026-09-01",
+   "delta_vs_prev3": 0.0027
+  },
+  {
+   "vkey": "6.96",
+   "n": 6207,
+   "avg": 4.5586,
+   "one": 0.0414,
+   "first_seen": "2026-09-08",
+   "delta_vs_prev3": 0.0064
+  },
+  {
+   "vkey": "6.97",
+   "n": 7264,
+   "avg": 4.5544,
+   "one": 0.0417,
+   "first_seen": "2026-09-14",
+   "delta_vs_prev3": -0.0007
+  },
+  {
+   "vkey": "6.98",
+   "n": 7772,
+   "avg": 4.5784,
+   "one": 0.0399,
+   "first_seen": "2026-09-21",
+   "delta_vs_prev3": 0.0219
+  },
+  {
+   "vkey": "6.99",
+   "n": 6979,
+   "avg": 4.5221,
+   "one": 0.0466,
+   "first_seen": "2026-09-29",
+   "delta_vs_prev3": -0.0416
+  },
+  {
+   "vkey": "6.100",
+   "n": 5757,
+   "avg": 4.5543,
+   "one": 0.0431,
+   "first_seen": "2026-10-06",
+   "delta_vs_prev3": 0.0027
+  },
+  {
+   "vkey": "6.101",
+   "n": 6960,
+   "avg": 4.5392,
+   "one": 0.0454,
+   "first_seen": "2026-10-12",
+   "delta_vs_prev3": -0.0124
+  },
+  {
+   "vkey": "6.102",
+   "n": 5219,
+   "avg": 4.4959,
+   "one": 0.0538,
+   "first_seen": "2026-10-19",
+   "delta_vs_prev3": -0.0427
+  },
+  {
+   "vkey": "6.103",
+   "n": 6743,
+   "avg": 4.5213,
+   "one": 0.0528,
+   "first_seen": "2026-10-26",
+   "delta_vs_prev3": -0.0085
+  },
+  {
+   "vkey": "6.104",
+   "n": 4316,
+   "avg": 4.5123,
+   "one": 0.0521,
+   "first_seen": "2026-11-02",
+   "delta_vs_prev3": -0.0065
+  },
+  {
+   "vkey": "6.105",
+   "n": 5107,
+   "avg": 4.4889,
+   "one": 0.0525,
+   "first_seen": "2026-11-09",
+   "delta_vs_prev3": -0.0209
+  },
+  {
+   "vkey": "6.106",
+   "n": 3506,
+   "avg": 4.427,
+   "one": 0.0696,
+   "first_seen": "2026-11-16",
+   "delta_vs_prev3": -0.0805
+  }
+ ],
+ "keyword_trends": [
+  {
+   "theme": "energy / hearts",
+   "month": "2026-07",
+   "share": 0.0188,
+   "stars": 2.86
+  },
+  {
+   "theme": "energy / hearts",
+   "month": "2026-08",
+   "share": 0.0164,
+   "stars": 2.84
+  },
+  {
+   "theme": "energy / hearts",
+   "month": "2026-09",
+   "share": 0.0161,
+   "stars": 2.89
+  },
+  {
+   "theme": "energy / hearts",
+   "month": "2026-10",
+   "share": 0.0143,
+   "stars": 2.93
+  },
+  {
+   "theme": "energy / hearts",
+   "month": "2026-11",
+   "share": 0.017,
+   "stars": 2.87
+  },
+  {
+   "theme": "ads",
+   "month": "2026-07",
+   "share": 0.0177,
+   "stars": 3.14
+  },
+  {
+   "theme": "ads",
+   "month": "2026-08",
+   "share": 0.02,
+   "stars": 2.98
+  },
+  {
+   "theme": "ads",
+   "month": "2026-09",
+   "share": 0.0174,
+   "stars": 3.03
+  },
+  {
+   "theme": "ads",
+   "month": "2026-10",
+   "share": 0.0169,
+   "stars": 3.05
+  },
+  {
+   "theme": "ads",
+   "month": "2026-11",
+   "share": 0.0223,
+   "stars": 2.76
+  },
+  {
+   "theme": "Super / Max / price",
+   "month": "2026-07",
+   "share": 0.0337,
+   "stars": 3.63
+  },
+  {
+   "theme": "Super / Max / price",
+   "month": "2026-08",
+   "share": 0.0338,
+   "stars": 3.67
+  },
+  {
+   "theme": "Super / Max / price",
+   "month": "2026-09",
+   "share": 0.034,
+   "stars": 3.69
+  },
+  {
+   "theme": "Super / Max / price",
+   "month": "2026-10",
+   "share": 0.037,
+   "stars": 3.62
+  },
+  {
+   "theme": "Super / Max / price",
+   "month": "2026-11",
+   "share": 0.043,
+   "stars": 3.4
+  },
+  {
+   "theme": "AI",
+   "month": "2026-07",
+   "share": 0.0078,
+   "stars": 2.01
+  },
+  {
+   "theme": "AI",
+   "month": "2026-08",
+   "share": 0.0075,
+   "stars": 2.07
+  },
+  {
+   "theme": "AI",
+   "month": "2026-09",
+   "share": 0.0076,
+   "stars": 2.12
+  },
+  {
+   "theme": "AI",
+   "month": "2026-10",
+   "share": 0.008,
+   "stars": 2.08
+  },
+  {
+   "theme": "AI",
+   "month": "2026-11",
+   "share": 0.0091,
+   "stars": 1.89
+  },
+  {
+   "theme": "streak",
+   "month": "2026-07",
+   "share": 0.0136,
+   "stars": 3.34
+  },
+  {
+   "theme": "streak",
+   "month": "2026-08",
+   "share": 0.013,
+   "stars": 3.37
+  },
+  {
+   "theme": "streak",
+   "month": "2026-09",
+   "share": 0.0128,
+   "stars": 3.44
+  },
+  {
+   "theme": "streak",
+   "month": "2026-10",
+   "share": 0.0173,
+   "stars": 2.94
+  },
+  {
+   "theme": "streak",
+   "month": "2026-11",
+   "share": 0.0205,
+   "stars": 2.95
+  },
+  {
+   "theme": "bug / crash",
+   "month": "2026-07",
+   "share": 0.0088,
+   "stars": 2.37
+  },
+  {
+   "theme": "bug / crash",
+   "month": "2026-08",
+   "share": 0.0078,
+   "stars": 2.44
+  },
+  {
+   "theme": "bug / crash",
+   "month": "2026-09",
+   "share": 0.0077,
+   "stars": 2.57
+  },
+  {
+   "theme": "bug / crash",
+   "month": "2026-10",
+   "share": 0.0137,
+   "stars": 2.06
+  },
+  {
+   "theme": "bug / crash",
+   "month": "2026-11",
+   "share": 0.0138,
+   "stars": 2.21
+  }
+ ],
+ "n_labeled": 6212,
+ "pain_points": [
+  {
+   "pain_points": "content_quality",
+   "n": 499,
+   "stars": 1.8617,
+   "share": 0.0526
+  },
+  {
+   "pain_points": "other",
+   "n": 457,
+   "stars": 1.8337,
+   "share": 0.047
+  },
+  {
+   "pain_points": "monetization_paywall",
+   "n": 527,
+   "stars": 1.6129,
+   "share": 0.0412
+  },
+  {
+   "pain_points": "energy_hearts_limits",
+   "n": 330,
+   "stars": 1.9515,
+   "share": 0.034
+  },
+  {
+   "pain_points": "bugs_performance",
+   "n": 435,
+   "stars": 1.7195,
+   "share": 0.0329
+  },
+  {
+   "pain_points": "ads",
+   "n": 294,
+   "stars": 1.7585,
+   "share": 0.0264
+  },
+  {
+   "pain_points": "learning_effectiveness",
+   "n": 301,
+   "stars": 1.7807,
+   "share": 0.0255
+  },
+  {
+   "pain_points": "streak_gamification",
+   "n": 264,
+   "stars": 1.7386,
+   "share": 0.0217
+  },
+  {
+   "pain_points": "ui_redesign",
+   "n": 213,
+   "stars": 1.8028,
+   "share": 0.0177
+  },
+  {
+   "pain_points": "speech_recognition",
+   "n": 114,
+   "stars": 1.9825,
+   "share": 0.0125
+  },
+  {
+   "pain_points": "ai_features",
+   "n": 151,
+   "stars": 1.3709,
+   "share": 0.0098
+  },
+  {
+   "pain_points": "customer_support",
+   "n": 88,
+   "stars": 1.375,
+   "share": 0.0056
+  }
+ ],
+ "pain_points_1star": {
+  "monetization_paywall": 0.2549,
+  "other": 0.2036,
+  "content_quality": 0.2024,
+  "bugs_performance": 0.1931,
+  "ads": 0.1335,
+  "learning_effectiveness": 0.1254,
+  "energy_hearts_limits": 0.123,
+  "streak_gamification": 0.1149,
+  "ai_features": 0.0878,
+  "ui_redesign": 0.083,
+  "none": 0.0741,
+  "customer_support": 0.0552,
+  "speech_recognition": 0.0428
+ },
+ "pain_trend": [
+  {
+   "month": "2026-07",
+   "pain_point": "ads",
+   "share": 0.0265
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "ai_features",
+   "share": 0.0098
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "bugs_performance",
+   "share": 0.03
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "content_quality",
+   "share": 0.0562
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "customer_support",
+   "share": 0.0031
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "energy_hearts_limits",
+   "share": 0.0389
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "learning_effectiveness",
+   "share": 0.03
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "monetization_paywall",
+   "share": 0.036
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "none",
+   "share": 0.7824
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "other",
+   "share": 0.0346
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "speech_recognition",
+   "share": 0.0145
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "streak_gamification",
+   "share": 0.0105
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "ui_redesign",
+   "share": 0.012
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "ads",
+   "share": 0.0338
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "ai_features",
+   "share": 0.0074
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "bugs_performance",
+   "share": 0.0311
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "content_quality",
+   "share": 0.0477
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "customer_support",
+   "share": 0.0066
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "energy_hearts_limits",
+   "share": 0.0227
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "learning_effectiveness",
+   "share": 0.0236
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "monetization_paywall",
+   "share": 0.0378
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "none",
+   "share": 0.7831
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "other",
+   "share": 0.047
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "speech_recognition",
+   "share": 0.0137
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "streak_gamification",
+   "share": 0.0136
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "ui_redesign",
+   "share": 0.0122
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "ads",
+   "share": 0.0193
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "ai_features",
+   "share": 0.0096
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "bugs_performance",
+   "share": 0.0296
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "content_quality",
+   "share": 0.0477
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "customer_support",
+   "share": 0.004
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "energy_hearts_limits",
+   "share": 0.0363
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "learning_effectiveness",
+   "share": 0.0281
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "monetization_paywall",
+   "share": 0.0463
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "none",
+   "share": 0.7726
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "other",
+   "share": 0.0487
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "speech_recognition",
+   "share": 0.0155
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "streak_gamification",
+   "share": 0.0199
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "ui_redesign",
+   "share": 0.0199
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "ads",
+   "share": 0.0181
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "ai_features",
+   "share": 0.0111
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "bugs_performance",
+   "share": 0.0326
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "content_quality",
+   "share": 0.0616
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "customer_support",
+   "share": 0.0064
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "energy_hearts_limits",
+   "share": 0.0414
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "learning_effectiveness",
+   "share": 0.0216
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "monetization_paywall",
+   "share": 0.0423
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "none",
+   "share": 0.7498
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "other",
+   "share": 0.0477
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "speech_recognition",
+   "share": 0.0105
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "streak_gamification",
+   "share": 0.0352
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "ui_redesign",
+   "share": 0.0207
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "ads",
+   "share": 0.0374
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "ai_features",
+   "share": 0.0128
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "bugs_performance",
+   "share": 0.0452
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "content_quality",
+   "share": 0.0524
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "customer_support",
+   "share": 0.0079
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "energy_hearts_limits",
+   "share": 0.0343
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "learning_effectiveness",
+   "share": 0.0258
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "monetization_paywall",
+   "share": 0.0417
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "none",
+   "share": 0.7388
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "other",
+   "share": 0.0554
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "speech_recognition",
+   "share": 0.0062
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "streak_gamification",
+   "share": 0.03
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "ui_redesign",
+   "share": 0.0251
+  }
+ ],
+ "sentiment": [
+  {
+   "month": "2026-07",
+   "sentiment": "negative",
+   "share": 0.0976
+  },
+  {
+   "month": "2026-07",
+   "sentiment": "neutral",
+   "share": 0.0618
+  },
+  {
+   "month": "2026-07",
+   "sentiment": "positive",
+   "share": 0.8405
+  },
+  {
+   "month": "2026-08",
+   "sentiment": "negative",
+   "share": 0.1043
+  },
+  {
+   "month": "2026-08",
+   "sentiment": "neutral",
+   "share": 0.0753
+  },
+  {
+   "month": "2026-08",
+   "sentiment": "positive",
+   "share": 0.8205
+  },
+  {
+   "month": "2026-09",
+   "sentiment": "negative",
+   "share": 0.111
+  },
+  {
+   "month": "2026-09",
+   "sentiment": "neutral",
+   "share": 0.074
+  },
+  {
+   "month": "2026-09",
+   "sentiment": "positive",
+   "share": 0.815
+  },
+  {
+   "month": "2026-10",
+   "sentiment": "negative",
+   "share": 0.1191
+  },
+  {
+   "month": "2026-10",
+   "sentiment": "neutral",
+   "share": 0.1019
+  },
+  {
+   "month": "2026-10",
+   "sentiment": "positive",
+   "share": 0.779
+  },
+  {
+   "month": "2026-11",
+   "sentiment": "negative",
+   "share": 0.1274
+  },
+  {
+   "month": "2026-11",
+   "sentiment": "neutral",
+   "share": 0.069
+  },
+  {
+   "month": "2026-11",
+   "sentiment": "positive",
+   "share": 0.8036
+  }
+ ],
+ "churn_signal_share": 0.0175,
+ "churn_reasons": {
+  "monetization_paywall": 0.4284,
+  "content_quality": 0.2462,
+  "streak_gamification": 0.2196,
+  "other": 0.2175,
+  "ads": 0.2021,
+  "ui_redesign": 0.1797,
+  "energy_hearts_limits": 0.178,
+  "learning_effectiveness": 0.1342,
+  "bugs_performance": 0.1114,
+  "ai_features": 0.0911,
+  "speech_recognition": 0.058,
+  "customer_support": 0.0482
+ },
+ "competitors_named_by_duo_users": {
+  "Babbel": 7,
+  "Youtube": 3,
+  "Busuu": 3,
+  "Google Translate": 3,
+  "Brawl Stars": 3,
+  "Rosetta Stone": 3,
+  "Pimsleur": 2,
+  "Chatgpt": 2,
+  "Airlearn": 2,
+  "Kahoot": 1
+ },
+ "switchers_from_duolingo": {
+  "n": 194,
+  "by_app": {
+   "babbel": 72,
+   "speak": 66,
+   "busuu": 39,
+   "memrise": 17
+  },
+  "avg_stars_given_to_new_app": 4.59
+ },
+ "switcher_features": {
+  "lessons": 17,
+  "grammar explanations": 10,
+  "streak": 9,
+  "conversation practice": 8,
+  "vocabulary": 8,
+  "speaking practice": 8,
+  "grammar": 6,
+  "grammar lessons": 5,
+  "spanish course": 4,
+  "pronunciation": 4,
+  "pronunciation feedback": 3,
+  "dialogues": 3,
+  "videos": 3,
+  "phrases": 3,
+  "explanations": 3
+ },
+ "switcher_quotes": [
+  {
+   "app": "memrise",
+   "score": 5,
+   "content": "Excellent app and way of learning a language. I used Duolingo for many years and I prefer Memrise. It uses a lot of the same methods, but the videos and the AI chat are a great way to augment the learning, and the slightly less gamified approach is much less stressful than Duolin"
+  },
+  {
+   "app": "babbel",
+   "score": 5,
+   "content": "I've tried Duolingo (useless), Memrise, and Rosetta Stone (the best, but expensive and intense), but Babbel is my favorite. Babble is effective, engaging, and fun. Currently studying Italian. The lessons nicely combine memorization with grammar, so you learn words and also learn "
+  },
+  {
+   "app": "memrise",
+   "score": 5,
+   "content": "LOVE this app! do yourself a favor: delete Duolingo, and download Memrise! So nice to hear real native speakers pronouncing phrases, and most importantly, no ads interrupting the learning process!!! I will definitely be subscribing to the pro level out of sheer gratitude to this "
+  },
+  {
+   "app": "memrise",
+   "score": 5,
+   "content": "I only just started using this today, but it's amazing! I was learning Korean on Duolingo, but it was hard, and the owl was very threatening tbh. I found Memrise and decided to use it instead. I'm still going to use Duo for learning Hangeul (the Korean alphabet), but I'm definite"
+  },
+  {
+   "app": "busuu",
+   "score": 5,
+   "content": "I walked away from Duolingo after they introduced the energy system because I wasn't about to be forced to pay. I found Busuu as an alternative, and it's so much better. A lot more functionality, actual native speakers talking, grammatical explanations, the community helping each"
+  },
+  {
+   "app": "babbel",
+   "score": 5,
+   "content": "Coming from Duolingo and Rosetta Stone, this one is head and shoulder above. Also just found out that the phone version of the app has extensive features - it makes the app from the better to the BEST - under \"Practice,\" while only its sub-section \"Review\" is available in the tab"
+  },
+  {
+   "app": "busuu",
+   "score": 5,
+   "content": "I have been using Duolingo for several to learn french. Although it is designed to making language learning fun, however, I got far too frustrated because there is too little structure and explanation. I personally find Busuu is a lot better. After a couple of months, I now have "
+  },
+  {
+   "app": "babbel",
+   "score": 4,
+   "content": "Great program, I started off with Duolingo but switched to Babbel after 12 months as I found the voices and the game like structure annoying. I find Babbel is well structured and easy to use and aimed mainly towards the adult market. My only frustration is that at times it tries "
+  }
+ ],
+ "quotes": {
+  "content_quality": [
+   {
+    "score": 1,
+    "thumbsUpCount": 47,
+    "content": "At the end of each section you get a quiz where even a right answer is marked as wrong. You can look up the absolutely correct answer on the internet but Duo Lingo will mark it as wrong. There is no clue as to which translation it is demanding. And most annoyi"
+   },
+   {
+    "score": 1,
+    "thumbsUpCount": 46,
+    "content": "I might have given this app 3 or 4 stars at one point, but the quality has gone SO FAR downhill, the only reason I still use it, is because I HAVE learned a fair amount of Japanese from this app. Whatever AI they're using to make the lessons, went from okay-is"
+   },
+   {
+    "score": 2,
+    "thumbsUpCount": 39,
+    "content": "Not happy with how its going with this app. Changes over the years have impacted how enjoyable it is to learn, and although I'm learning single words, I would have no confidence in a conversation. The new introduction of having to 'pass' each level by translat"
+   }
+  ],
+  "other": [
+   {
+    "score": 1,
+    "thumbsUpCount": 87,
+    "content": "why did you have to go and change the limit on the lessons you can do per day instead of avoiding mistakes with the heart system. this just reeks of greed and a departure from the company's values and now they waste your time as much as possible with a million"
+   },
+   {
+    "score": 1,
+    "thumbsUpCount": 78,
+    "content": "oii, pfvv coloquei avalia\u00e7\u00e3o baixa s\u00f3 p vcs me notarem. fiz li\u00e7\u00f5es do duolingo no PC a ai mudei p cll e n recebi as pe\u00e7as do quebra cabe\u00e7a de halloween. hj \u00e9 o \u00faltimo dia e s\u00f3 falta uma pe\u00e7a p completar tudoo. pfvv como recupero pq no cll n aparece nada nem no"
+   },
+   {
+    "score": 1,
+    "thumbsUpCount": 47,
+    "content": "This app is like a bad relationship."
+   }
+  ],
+  "monetization_paywall": [
+   {
+    "score": 1,
+    "thumbsUpCount": 137,
+    "content": "Used to be a good, fun way to start learning a language. Now it's utterly unusable. Unless you pay for the subscription, of course. They shouldn't even be allowed to call this a free app. With their \"energy system\", you can't complete more than 2 lessons a day"
+   },
+   {
+    "score": 2,
+    "thumbsUpCount": 66,
+    "content": "It can help with language learning if you use it alongside other methods, but the trend to gamify the app with \"suits\", \"puzzle pieces\" and other meaningless additions that just require more key presses is extremely annoying. There is no way to opt out of thes"
+   },
+   {
+    "score": 1,
+    "thumbsUpCount": 59,
+    "content": "Getting increasingly difficult to use it as a non-super user (free). A few weeks ago it was still possible to replenish multiple hearts by doing special exercises. Then it got limited to one heart and now you have to either pay, get duolingo super or watch ads"
+   }
+  ],
+  "energy_hearts_limits": [
+   {
+    "score": 1,
+    "thumbsUpCount": 137,
+    "content": "Used to be a good, fun way to start learning a language. Now it's utterly unusable. Unless you pay for the subscription, of course. They shouldn't even be allowed to call this a free app. With their \"energy system\", you can't complete more than 2 lessons a day"
+   },
+   {
+    "score": 1,
+    "thumbsUpCount": 87,
+    "content": "why did you have to go and change the limit on the lessons you can do per day instead of avoiding mistakes with the heart system. this just reeks of greed and a departure from the company's values and now they waste your time as much as possible with a million"
+   },
+   {
+    "score": 1,
+    "thumbsUpCount": 59,
+    "content": "Getting increasingly difficult to use it as a non-super user (free). A few weeks ago it was still possible to replenish multiple hearts by doing special exercises. Then it got limited to one heart and now you have to either pay, get duolingo super or watch ads"
+   }
+  ],
+  "bugs_performance": [
+   {
+    "score": 1,
+    "thumbsUpCount": 78,
+    "content": "oii, pfvv coloquei avalia\u00e7\u00e3o baixa s\u00f3 p vcs me notarem. fiz li\u00e7\u00f5es do duolingo no PC a ai mudei p cll e n recebi as pe\u00e7as do quebra cabe\u00e7a de halloween. hj \u00e9 o \u00faltimo dia e s\u00f3 falta uma pe\u00e7a p completar tudoo. pfvv como recupero pq no cll n aparece nada nem no"
+   },
+   {
+    "score": 1,
+    "thumbsUpCount": 38,
+    "content": "This app is worthless and unusable. It's filled with bloat and interruptions. They fired all the humans and left the AI in charge. Since then, the accuracy of the translations has started to deteriorate. They never finished the Navajo course and don't even off"
+   },
+   {
+    "score": 1,
+    "thumbsUpCount": 37,
+    "content": "Recent update broke the Japanese course really badly. My progress got reset back a section and new sentences do not make any sense. Looks like the AI-powered enshittification has gone a step further."
+   }
+  ],
+  "ads": [
+   {
+    "score": 1,
+    "thumbsUpCount": 137,
+    "content": "Used to be a good, fun way to start learning a language. Now it's utterly unusable. Unless you pay for the subscription, of course. They shouldn't even be allowed to call this a free app. With their \"energy system\", you can't complete more than 2 lessons a day"
+   },
+   {
+    "score": 1,
+    "thumbsUpCount": 129,
+    "content": "seriously, remove the Temu adds because they are beyond frustrating."
+   },
+   {
+    "score": 1,
+    "thumbsUpCount": 59,
+    "content": "Getting increasingly difficult to use it as a non-super user (free). A few weeks ago it was still possible to replenish multiple hearts by doing special exercises. Then it got limited to one heart and now you have to either pay, get duolingo super or watch ads"
+   }
+  ]
+ },
+ "neg_features": {
+  "lessons": 166,
+  "energy": 127,
+  "streak": 111,
+  "hearts": 60,
+  "chess": 60,
+  "energy system": 58,
+  "subscription": 56,
+  "notifications": 45,
+  "ads": 43,
+  "gems": 39,
+  "streak freeze": 37,
+  "free trial": 30,
+  "chests": 25,
+  "app icon": 25,
+  "animations": 21
+ },
+ "competitor_pain_points": {
+  "babbel": {
+   "none": 0.404,
+   "monetization_paywall": 0.2,
+   "content_quality": 0.196,
+   "bugs_performance": 0.116,
+   "learning_effectiveness": 0.1
+  },
+  "busuu": {
+   "none": 0.739,
+   "monetization_paywall": 0.088,
+   "content_quality": 0.068,
+   "bugs_performance": 0.064,
+   "ads": 0.04
+  },
+  "memrise": {
+   "none": 0.524,
+   "other": 0.144,
+   "content_quality": 0.132,
+   "bugs_performance": 0.1,
+   "ui_redesign": 0.092
+  },
+  "speak": {
+   "none": 0.836,
+   "content_quality": 0.064,
+   "monetization_paywall": 0.052,
+   "other": 0.028,
+   "bugs_performance": 0.012
+  }
+ },
+ "competitor_sentiment": {
+  "babbel": {
+   "negative": 0.46,
+   "neutral": 0.104,
+   "positive": 0.436
+  },
+  "busuu": {
+   "negative": 0.12,
+   "neutral": 0.1,
+   "positive": 0.779
+  },
+  "memrise": {
+   "negative": 0.356,
+   "neutral": 0.068,
+   "positive": 0.576
+  },
+  "speak": {
+   "negative": 0.056,
+   "neutral": 0.048,
+   "positive": 0.896
+  }
+ },
+ "release_mix": [
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "ads",
+   "share": 0.1315
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "ai_features",
+   "share": 0.0583
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "bugs_performance",
+   "share": 0.208
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "content_quality",
+   "share": 0.2259
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "customer_support",
+   "share": 0.0684
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "energy_hearts_limits",
+   "share": 0.0934
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "learning_effectiveness",
+   "share": 0.1035
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "monetization_paywall",
+   "share": 0.2802
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "none",
+   "share": 0.0619
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "other",
+   "share": 0.192
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "speech_recognition",
+   "share": 0.0489
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "streak_gamification",
+   "share": 0.1987
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "ui_redesign",
+   "share": 0.1476
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "ads",
+   "share": 0.1482
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "ai_features",
+   "share": 0.117
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "bugs_performance",
+   "share": 0.147
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "content_quality",
+   "share": 0.1938
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "energy_hearts_limits",
+   "share": 0.1626
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "learning_effectiveness",
+   "share": 0.2133
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "monetization_paywall",
+   "share": 0.3653
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "none",
+   "share": 0.0156
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "other",
+   "share": 0.1677
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "speech_recognition",
+   "share": 0.0637
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "streak_gamification",
+   "share": 0.1807
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "ui_redesign",
+   "share": 0.1964
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "ads",
+   "share": 0.1273
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "ai_features",
+   "share": 0.0799
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "bugs_performance",
+   "share": 0.1886
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "content_quality",
+   "share": 0.2134
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "customer_support",
+   "share": 0.0412
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "energy_hearts_limits",
+   "share": 0.1366
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "learning_effectiveness",
+   "share": 0.1322
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "monetization_paywall",
+   "share": 0.2404
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "none",
+   "share": 0.0909
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "other",
+   "share": 0.1852
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "speech_recognition",
+   "share": 0.0414
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "streak_gamification",
+   "share": 0.1016
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "ui_redesign",
+   "share": 0.0793
+  }
+ ],
+ "release_neg_n": {
+  "6.102\u20136.105 (Oct 19\u2013Nov 15)": 270,
+  "6.106 (Nov 16)": 61,
+  "\u2264 6.101 (Jul\u2013Oct 18)": 1402
+ },
+ "neg_month_mix": [
+  {
+   "month": "2026-07",
+   "pain_point": "streak_gamification",
+   "share": 0.0755
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "monetization_paywall",
+   "share": 0.218
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "ui_redesign",
+   "share": 0.0582
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "bugs_performance",
+   "share": 0.1983
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "energy_hearts_limits",
+   "share": 0.1463
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "ai_features",
+   "share": 0.0844
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "streak_gamification",
+   "share": 0.0816
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "monetization_paywall",
+   "share": 0.2321
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "ui_redesign",
+   "share": 0.0648
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "bugs_performance",
+   "share": 0.1839
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "energy_hearts_limits",
+   "share": 0.1468
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "ai_features",
+   "share": 0.0725
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "streak_gamification",
+   "share": 0.1133
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "monetization_paywall",
+   "share": 0.2577
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "ui_redesign",
+   "share": 0.1009
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "bugs_performance",
+   "share": 0.1814
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "energy_hearts_limits",
+   "share": 0.1587
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "ai_features",
+   "share": 0.0883
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "streak_gamification",
+   "share": 0.1588
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "monetization_paywall",
+   "share": 0.2691
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "ui_redesign",
+   "share": 0.1002
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "bugs_performance",
+   "share": 0.2084
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "energy_hearts_limits",
+   "share": 0.091
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "ai_features",
+   "share": 0.0644
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "streak_gamification",
+   "share": 0.1554
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "monetization_paywall",
+   "share": 0.2641
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "ui_redesign",
+   "share": 0.1373
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "bugs_performance",
+   "share": 0.1803
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "energy_hearts_limits",
+   "share": 0.1122
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "ai_features",
+   "share": 0.0836
+  }
+ ]
+}

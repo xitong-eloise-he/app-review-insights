@@ -1,0 +1,1854 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Duolingo Churn Signals</title>
+<meta name="description" content="Why Duolingo users leave for other apps: 174k Google Play reviews, LLM-tagged pain points tracked by release, competitor comparison, and a PRD.">
+<style>
+:root{
+  color-scheme:light;
+  --bg:#f6f6f4; --surface-1:#fcfcfb; --line:#e4e3df; --grid:#ecebe7;
+  --text-primary:#0b0b0b; --text-secondary:#52514e; --text-muted:#85847f;
+  --series-1:#2a78d6; --series-2:#eb6834; --series-3:#1baf7a; --accent:#2a78d6; --crit:#c4362f;
+}
+@media (prefers-color-scheme:dark){
+  :root:where(:not([data-theme="light"])){
+    color-scheme:dark;
+    --bg:#121211; --surface-1:#1a1a19; --line:#2c2c2a; --grid:#262624;
+    --text-primary:#f0efec; --text-secondary:#c3c2b7; --text-muted:#8f8e86;
+    --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --accent:#3987e5; --crit:#e66767;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#121211; --surface-1:#1a1a19; --line:#2c2c2a; --grid:#262624;
+  --text-primary:#f0efec; --text-secondary:#c3c2b7; --text-muted:#8f8e86;
+  --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --accent:#3987e5; --crit:#e66767;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text-primary);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:32px 16px 64px}
+h1{font-size:28px;margin:0 0 6px;letter-spacing:-.01em}
+header p{margin:0;color:var(--text-secondary);max-width:760px}
+.meta{font-size:13px;color:var(--text-muted);margin-top:8px}
+.meta a,footer a,.links a{color:var(--accent)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0}
+.kpi{background:var(--surface-1);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi .v{font-size:24px;font-weight:650;font-variant-numeric:tabular-nums}
+.kpi .l{font-size:12px;color:var(--text-secondary)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{background:var(--surface-1);border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}
+.wide{grid-column:1/-1}
+.card h2{font-size:16px;margin:0 0 2px}
+.sub{font-size:13px;color:var(--text-secondary);margin:0 0 12px}
+.take{font-size:13px;border-left:3px solid var(--accent);padding:2px 0 2px 10px;margin:12px 0 0}
+svg{display:block;width:100%;height:auto;overflow:visible}
+svg text{fill:var(--text-secondary);font-size:12px}
+svg .val{fill:var(--text-primary);font-weight:600;font-variant-numeric:tabular-nums}
+svg .gl{stroke:var(--grid)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--text-secondary);margin-bottom:6px}
+.legend i{display:inline-block;width:12px;height:3px;border-radius:2px;margin-right:6px;vertical-align:3px}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{text-align:right;padding:6px 8px;border-bottom:1px solid var(--grid)}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--text-secondary);font-weight:600}
+.quotes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.q{font-size:13px;background:var(--bg);border-radius:10px;padding:10px 12px;color:var(--text-secondary)}
+.q b{color:var(--text-primary);font-size:12px;display:block;margin-bottom:2px}
+.prd{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px}
+.comp{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px}
+.comp .tag{font-size:11px;font-weight:700;color:var(--accent)}
+.comp h3{font-size:14px;margin:2px 0 4px}
+.comp p{margin:0;color:var(--text-secondary)}
+.links{margin-top:14px;font-size:14px;display:flex;gap:18px;flex-wrap:wrap}
+#tip{position:fixed;pointer-events:none;background:var(--text-primary);color:var(--surface-1);font-size:12px;padding:6px 8px;border-radius:6px;opacity:0;z-index:9;max-width:260px}
+footer{margin-top:28px;font-size:12.5px;color:var(--text-muted)}
+@media (max-width:820px){.grid,.quotes{grid-template-columns:1fr}.kpis,.prd{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Why do Duolingo users leave for other apps?</h1>
+  <p>174k Google Play reviews, a 6.2k stratified sample tagged by an LLM for pain points, sentiment and switching intent, tracked by release and compared with Babbel, Busuu, Memrise and Speak. The findings feed a PRD.</p>
+  <div class="meta">Duolingo reviews 2026-07-14 → 2026-11-23 · tagging: Claude Haiku 5.5 · <a href="https://github.com/xitong-eloise-he/app-review-insights">code</a></div>
+</header>
+
+<section class="kpis" id="kpis"></section>
+
+<div class="grid">
+  <section class="card wide">
+    <h2>1-star share by release</h2>
+    <p class="sub">All Duolingo reviews, releases with ≥ 300 reviews, in release order.</p>
+    <div id="versions"></div>
+    <p class="take" id="verTake"></p>
+  </section>
+
+  <section class="card wide">
+    <h2>What negative reviews complain about, by month</h2>
+    <p class="sub">Share of ≤ 2★ Duolingo reviews citing each theme (LLM tags, re-weighted to the full population).</p>
+    <div class="legend" id="trendLegend"></div>
+    <div id="trend"></div>
+    <p class="take">Streak complaints doubled and reward-clutter complaints more than doubled between July and November, while monetization stayed the single largest theme.</p>
+  </section>
+
+  <section class="card">
+    <h2>Why users say they're leaving</h2>
+    <p class="sub">Reviews tagged "switched away" or "considering leaving" (<span id="churnShare"></span> of all reviews). Reasons can overlap.</p>
+    <div id="churn"></div>
+  </section>
+
+  <section class="card">
+    <h2>Where switchers go</h2>
+    <p class="sub">Competitor reviews written by people who say they came from Duolingo.</p>
+    <div id="dest"></div>
+    <p class="take">What they praise: <b>grammar explanations</b>, <b>speaking / conversation practice</b>, structured lessons, native-speaker audio, fewer ads and less gamification.</p>
+  </section>
+
+  <section class="card wide">
+    <h2>Competitors: what's wrong with the alternatives</h2>
+    <p class="sub">250 random recent reviews per competitor, same tagging.</p>
+    <div style="overflow-x:auto"><table id="comp"></table></div>
+    <p class="take">Babbel attracts the most switchers but has the angriest reviews of its own, mostly about price. Duolingo can win these users back with a better free learning experience. It doesn't have to match Babbel's prices.</p>
+  </section>
+
+  <section class="card wide">
+    <h2>In their words</h2>
+    <p class="sub">Most-upvoted negative reviews per theme (excerpts).</p>
+    <div class="quotes" id="quotes"></div>
+  </section>
+
+  <section class="card wide">
+    <h2>PRD: Focus Mode, a learning-first Duolingo for committed learners</h2>
+    <p class="sub">Opt-in setting for free users with a 30+ day streak. Primary metric: D30 retention (+1 pp). Guardrails: Super conversion, revenue per DAU. A/B test, about 32.7k users per arm.</p>
+    <div class="prd">
+      <div class="comp"><span class="tag">P0</span><h3>Quiet rewards</h3><p>Chests, puzzle pieces and animations collapse into one summary card.</p></div>
+      <div class="comp"><span class="tag">P0</span><h3>Streak you can trust</h3><p>A freeze is used only if no lesson is logged on any device, and the app shows which lesson counted.</p></div>
+      <div class="comp"><span class="tag">P1</span><h3>Free "why?"</h3><p>3 grammar explanations a day on mistakes, plus a tip card at the start of each unit.</p></div>
+      <div class="comp"><span class="tag">P1</span><h3>Free practice</h3><p>Reviewing completed material doesn't cost energy.</p></div>
+    </div>
+    <div class="links"><a href="https://github.com/xitong-eloise-he/app-review-insights/blob/main/docs/PRD.md">Read the full PRD →</a><a href="https://github.com/xitong-eloise-he/app-review-insights/blob/main/docs/competitive_analysis.md">Competitive analysis →</a></div>
+  </section>
+</div>
+
+<footer>Reviews skew negative and toward vocal users, so they show <i>why</i> users leave, not <i>how many</i>. The PRD measures success with product metrics. Portfolio project; not affiliated with Duolingo.</footer>
+</div>
+<div id="tip"></div>
+<script>
+const D = {
+ "apps": [
+  {
+   "app": "babbel",
+   "reviews": 6000,
+   "avg_stars": 3.270166666666667,
+   "one_star": 0.279,
+   "first": "2024-08-08",
+   "last": "2026-11-23"
+  },
+  {
+   "app": "busuu",
+   "reviews": 6000,
+   "avg_stars": 4.282,
+   "one_star": 0.0865,
+   "first": "2025-09-13",
+   "last": "2026-11-23"
+  },
+  {
+   "app": "duolingo",
+   "reviews": 150000,
+   "avg_stars": 4.474473333333333,
+   "one_star": 0.05908,
+   "first": "2026-07-14",
+   "last": "2026-11-23"
+  },
+  {
+   "app": "memrise",
+   "reviews": 6000,
+   "avg_stars": 3.5171666666666668,
+   "one_star": 0.2618333333333333,
+   "first": "2024-01-07",
+   "last": "2026-11-23"
+  },
+  {
+   "app": "speak",
+   "reviews": 6000,
+   "avg_stars": 4.464333333333333,
+   "one_star": 0.08133333333333333,
+   "first": "2025-07-01",
+   "last": "2026-11-23"
+  }
+ ],
+ "weekly": [
+  {
+   "week": "2026-07-13",
+   "n": 6607,
+   "avg": 4.4695,
+   "one": 0.0575
+  },
+  {
+   "week": "2026-07-20",
+   "n": 9095,
+   "avg": 4.4829,
+   "one": 0.0581
+  },
+  {
+   "week": "2026-07-27",
+   "n": 8464,
+   "avg": 4.48,
+   "one": 0.0575
+  },
+  {
+   "week": "2026-08-03",
+   "n": 9077,
+   "avg": 4.4738,
+   "one": 0.0552
+  },
+  {
+   "week": "2026-08-10",
+   "n": 8664,
+   "avg": 4.5087,
+   "one": 0.051
+  },
+  {
+   "week": "2026-08-17",
+   "n": 8046,
+   "avg": 4.5066,
+   "one": 0.052
+  },
+  {
+   "week": "2026-08-24",
+   "n": 8800,
+   "avg": 4.4434,
+   "one": 0.0665
+  },
+  {
+   "week": "2026-08-31",
+   "n": 9497,
+   "avg": 4.4716,
+   "one": 0.061
+  },
+  {
+   "week": "2026-09-07",
+   "n": 8630,
+   "avg": 4.491,
+   "one": 0.0575
+  },
+  {
+   "week": "2026-09-14",
+   "n": 8082,
+   "avg": 4.5015,
+   "one": 0.0515
+  },
+  {
+   "week": "2026-09-21",
+   "n": 8598,
+   "avg": 4.513,
+   "one": 0.0523
+  },
+  {
+   "week": "2026-09-28",
+   "n": 7956,
+   "avg": 4.4964,
+   "one": 0.0554
+  },
+  {
+   "week": "2026-10-05",
+   "n": 7302,
+   "avg": 4.4643,
+   "one": 0.0633
+  },
+  {
+   "week": "2026-10-12",
+   "n": 7304,
+   "avg": 4.4804,
+   "one": 0.0581
+  },
+  {
+   "week": "2026-10-19",
+   "n": 7271,
+   "avg": 4.4485,
+   "one": 0.0623
+  },
+  {
+   "week": "2026-10-26",
+   "n": 6874,
+   "avg": 4.4601,
+   "one": 0.0628
+  },
+  {
+   "week": "2026-11-02",
+   "n": 6456,
+   "avg": 4.4569,
+   "one": 0.0658
+  },
+  {
+   "week": "2026-11-09",
+   "n": 6277,
+   "avg": 4.4598,
+   "one": 0.0621
+  },
+  {
+   "week": "2026-11-16",
+   "n": 6345,
+   "avg": 4.3729,
+   "one": 0.0794
+  }
+ ],
+ "versions": [
+  {
+   "vkey": "5.121",
+   "n": 1769,
+   "avg": 4.5738,
+   "one": 0.0339,
+   "first_seen": "2026-07-14",
+   "delta_vs_prev3": NaN
+  },
+  {
+   "vkey": "5.141",
+   "n": 2417,
+   "avg": 4.5395,
+   "one": 0.0389,
+   "first_seen": "2026-07-14",
+   "delta_vs_prev3": -0.0343
+  },
+  {
+   "vkey": "6.86",
+   "n": 497,
+   "avg": 4.5734,
+   "one": 0.0342,
+   "first_seen": "2026-07-14",
+   "delta_vs_prev3": 0.0168
+  },
+  {
+   "vkey": "6.87",
+   "n": 2508,
+   "avg": 4.5299,
+   "one": 0.0395,
+   "first_seen": "2026-07-14",
+   "delta_vs_prev3": -0.0323
+  },
+  {
+   "vkey": "6.88",
+   "n": 7708,
+   "avg": 4.5549,
+   "one": 0.0422,
+   "first_seen": "2026-07-14",
+   "delta_vs_prev3": 0.0073
+  },
+  {
+   "vkey": "6.89",
+   "n": 8415,
+   "avg": 4.5316,
+   "one": 0.043,
+   "first_seen": "2026-07-21",
+   "delta_vs_prev3": -0.0212
+  },
+  {
+   "vkey": "6.90",
+   "n": 7322,
+   "avg": 4.5731,
+   "one": 0.0382,
+   "first_seen": "2026-07-27",
+   "delta_vs_prev3": 0.0343
+  },
+  {
+   "vkey": "6.91",
+   "n": 7833,
+   "avg": 4.5239,
+   "one": 0.0421,
+   "first_seen": "2026-08-03",
+   "delta_vs_prev3": -0.0292
+  },
+  {
+   "vkey": "6.92",
+   "n": 8809,
+   "avg": 4.5617,
+   "one": 0.041,
+   "first_seen": "2026-08-11",
+   "delta_vs_prev3": 0.0188
+  },
+  {
+   "vkey": "6.93",
+   "n": 6449,
+   "avg": 4.5499,
+   "one": 0.0423,
+   "first_seen": "2026-08-17",
+   "delta_vs_prev3": -0.003
+  },
+  {
+   "vkey": "6.94",
+   "n": 6602,
+   "avg": 4.55,
+   "one": 0.0439,
+   "first_seen": "2026-08-26",
+   "delta_vs_prev3": 0.0048
+  },
+  {
+   "vkey": "6.95",
+   "n": 9056,
+   "avg": 4.5565,
+   "one": 0.0445,
+   "first_seen": "2026-09-01",
+   "delta_vs_prev3": 0.0027
+  },
+  {
+   "vkey": "6.96",
+   "n": 6207,
+   "avg": 4.5586,
+   "one": 0.0414,
+   "first_seen": "2026-09-08",
+   "delta_vs_prev3": 0.0064
+  },
+  {
+   "vkey": "6.97",
+   "n": 7264,
+   "avg": 4.5544,
+   "one": 0.0417,
+   "first_seen": "2026-09-14",
+   "delta_vs_prev3": -0.0007
+  },
+  {
+   "vkey": "6.98",
+   "n": 7772,
+   "avg": 4.5784,
+   "one": 0.0399,
+   "first_seen": "2026-09-21",
+   "delta_vs_prev3": 0.0219
+  },
+  {
+   "vkey": "6.99",
+   "n": 6979,
+   "avg": 4.5221,
+   "one": 0.0466,
+   "first_seen": "2026-09-29",
+   "delta_vs_prev3": -0.0416
+  },
+  {
+   "vkey": "6.100",
+   "n": 5757,
+   "avg": 4.5543,
+   "one": 0.0431,
+   "first_seen": "2026-10-06",
+   "delta_vs_prev3": 0.0027
+  },
+  {
+   "vkey": "6.101",
+   "n": 6960,
+   "avg": 4.5392,
+   "one": 0.0454,
+   "first_seen": "2026-10-12",
+   "delta_vs_prev3": -0.0124
+  },
+  {
+   "vkey": "6.102",
+   "n": 5219,
+   "avg": 4.4959,
+   "one": 0.0538,
+   "first_seen": "2026-10-19",
+   "delta_vs_prev3": -0.0427
+  },
+  {
+   "vkey": "6.103",
+   "n": 6743,
+   "avg": 4.5213,
+   "one": 0.0528,
+   "first_seen": "2026-10-26",
+   "delta_vs_prev3": -0.0085
+  },
+  {
+   "vkey": "6.104",
+   "n": 4316,
+   "avg": 4.5123,
+   "one": 0.0521,
+   "first_seen": "2026-11-02",
+   "delta_vs_prev3": -0.0065
+  },
+  {
+   "vkey": "6.105",
+   "n": 5107,
+   "avg": 4.4889,
+   "one": 0.0525,
+   "first_seen": "2026-11-09",
+   "delta_vs_prev3": -0.0209
+  },
+  {
+   "vkey": "6.106",
+   "n": 3506,
+   "avg": 4.427,
+   "one": 0.0696,
+   "first_seen": "2026-11-16",
+   "delta_vs_prev3": -0.0805
+  }
+ ],
+ "keyword_trends": [
+  {
+   "theme": "energy / hearts",
+   "month": "2026-07",
+   "share": 0.0188,
+   "stars": 2.86
+  },
+  {
+   "theme": "energy / hearts",
+   "month": "2026-08",
+   "share": 0.0164,
+   "stars": 2.84
+  },
+  {
+   "theme": "energy / hearts",
+   "month": "2026-09",
+   "share": 0.0161,
+   "stars": 2.89
+  },
+  {
+   "theme": "energy / hearts",
+   "month": "2026-10",
+   "share": 0.0143,
+   "stars": 2.93
+  },
+  {
+   "theme": "energy / hearts",
+   "month": "2026-11",
+   "share": 0.017,
+   "stars": 2.87
+  },
+  {
+   "theme": "ads",
+   "month": "2026-07",
+   "share": 0.0177,
+   "stars": 3.14
+  },
+  {
+   "theme": "ads",
+   "month": "2026-08",
+   "share": 0.02,
+   "stars": 2.98
+  },
+  {
+   "theme": "ads",
+   "month": "2026-09",
+   "share": 0.0174,
+   "stars": 3.03
+  },
+  {
+   "theme": "ads",
+   "month": "2026-10",
+   "share": 0.0169,
+   "stars": 3.05
+  },
+  {
+   "theme": "ads",
+   "month": "2026-11",
+   "share": 0.0223,
+   "stars": 2.76
+  },
+  {
+   "theme": "Super / Max / price",
+   "month": "2026-07",
+   "share": 0.0337,
+   "stars": 3.63
+  },
+  {
+   "theme": "Super / Max / price",
+   "month": "2026-08",
+   "share": 0.0338,
+   "stars": 3.67
+  },
+  {
+   "theme": "Super / Max / price",
+   "month": "2026-09",
+   "share": 0.034,
+   "stars": 3.69
+  },
+  {
+   "theme": "Super / Max / price",
+   "month": "2026-10",
+   "share": 0.037,
+   "stars": 3.62
+  },
+  {
+   "theme": "Super / Max / price",
+   "month": "2026-11",
+   "share": 0.043,
+   "stars": 3.4
+  },
+  {
+   "theme": "AI",
+   "month": "2026-07",
+   "share": 0.0078,
+   "stars": 2.01
+  },
+  {
+   "theme": "AI",
+   "month": "2026-08",
+   "share": 0.0075,
+   "stars": 2.07
+  },
+  {
+   "theme": "AI",
+   "month": "2026-09",
+   "share": 0.0076,
+   "stars": 2.12
+  },
+  {
+   "theme": "AI",
+   "month": "2026-10",
+   "share": 0.008,
+   "stars": 2.08
+  },
+  {
+   "theme": "AI",
+   "month": "2026-11",
+   "share": 0.0091,
+   "stars": 1.89
+  },
+  {
+   "theme": "streak",
+   "month": "2026-07",
+   "share": 0.0136,
+   "stars": 3.34
+  },
+  {
+   "theme": "streak",
+   "month": "2026-08",
+   "share": 0.013,
+   "stars": 3.37
+  },
+  {
+   "theme": "streak",
+   "month": "2026-09",
+   "share": 0.0128,
+   "stars": 3.44
+  },
+  {
+   "theme": "streak",
+   "month": "2026-10",
+   "share": 0.0173,
+   "stars": 2.94
+  },
+  {
+   "theme": "streak",
+   "month": "2026-11",
+   "share": 0.0205,
+   "stars": 2.95
+  },
+  {
+   "theme": "bug / crash",
+   "month": "2026-07",
+   "share": 0.0088,
+   "stars": 2.37
+  },
+  {
+   "theme": "bug / crash",
+   "month": "2026-08",
+   "share": 0.0078,
+   "stars": 2.44
+  },
+  {
+   "theme": "bug / crash",
+   "month": "2026-09",
+   "share": 0.0077,
+   "stars": 2.57
+  },
+  {
+   "theme": "bug / crash",
+   "month": "2026-10",
+   "share": 0.0137,
+   "stars": 2.06
+  },
+  {
+   "theme": "bug / crash",
+   "month": "2026-11",
+   "share": 0.0138,
+   "stars": 2.21
+  }
+ ],
+ "n_labeled": 6212,
+ "pain_points": [
+  {
+   "pain_points": "content_quality",
+   "n": 499,
+   "stars": 1.8617,
+   "share": 0.0526
+  },
+  {
+   "pain_points": "other",
+   "n": 457,
+   "stars": 1.8337,
+   "share": 0.047
+  },
+  {
+   "pain_points": "monetization_paywall",
+   "n": 527,
+   "stars": 1.6129,
+   "share": 0.0412
+  },
+  {
+   "pain_points": "energy_hearts_limits",
+   "n": 330,
+   "stars": 1.9515,
+   "share": 0.034
+  },
+  {
+   "pain_points": "bugs_performance",
+   "n": 435,
+   "stars": 1.7195,
+   "share": 0.0329
+  },
+  {
+   "pain_points": "ads",
+   "n": 294,
+   "stars": 1.7585,
+   "share": 0.0264
+  },
+  {
+   "pain_points": "learning_effectiveness",
+   "n": 301,
+   "stars": 1.7807,
+   "share": 0.0255
+  },
+  {
+   "pain_points": "streak_gamification",
+   "n": 264,
+   "stars": 1.7386,
+   "share": 0.0217
+  },
+  {
+   "pain_points": "ui_redesign",
+   "n": 213,
+   "stars": 1.8028,
+   "share": 0.0177
+  },
+  {
+   "pain_points": "speech_recognition",
+   "n": 114,
+   "stars": 1.9825,
+   "share": 0.0125
+  },
+  {
+   "pain_points": "ai_features",
+   "n": 151,
+   "stars": 1.3709,
+   "share": 0.0098
+  },
+  {
+   "pain_points": "customer_support",
+   "n": 88,
+   "stars": 1.375,
+   "share": 0.0056
+  }
+ ],
+ "pain_points_1star": {
+  "monetization_paywall": 0.2549,
+  "other": 0.2036,
+  "content_quality": 0.2024,
+  "bugs_performance": 0.1931,
+  "ads": 0.1335,
+  "learning_effectiveness": 0.1254,
+  "energy_hearts_limits": 0.123,
+  "streak_gamification": 0.1149,
+  "ai_features": 0.0878,
+  "ui_redesign": 0.083,
+  "none": 0.0741,
+  "customer_support": 0.0552,
+  "speech_recognition": 0.0428
+ },
+ "pain_trend": [
+  {
+   "month": "2026-07",
+   "pain_point": "ads",
+   "share": 0.0265
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "ai_features",
+   "share": 0.0098
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "bugs_performance",
+   "share": 0.03
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "content_quality",
+   "share": 0.0562
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "customer_support",
+   "share": 0.0031
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "energy_hearts_limits",
+   "share": 0.0389
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "learning_effectiveness",
+   "share": 0.03
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "monetization_paywall",
+   "share": 0.036
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "none",
+   "share": 0.7824
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "other",
+   "share": 0.0346
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "speech_recognition",
+   "share": 0.0145
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "streak_gamification",
+   "share": 0.0105
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "ui_redesign",
+   "share": 0.012
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "ads",
+   "share": 0.0338
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "ai_features",
+   "share": 0.0074
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "bugs_performance",
+   "share": 0.0311
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "content_quality",
+   "share": 0.0477
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "customer_support",
+   "share": 0.0066
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "energy_hearts_limits",
+   "share": 0.0227
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "learning_effectiveness",
+   "share": 0.0236
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "monetization_paywall",
+   "share": 0.0378
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "none",
+   "share": 0.7831
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "other",
+   "share": 0.047
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "speech_recognition",
+   "share": 0.0137
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "streak_gamification",
+   "share": 0.0136
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "ui_redesign",
+   "share": 0.0122
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "ads",
+   "share": 0.0193
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "ai_features",
+   "share": 0.0096
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "bugs_performance",
+   "share": 0.0296
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "content_quality",
+   "share": 0.0477
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "customer_support",
+   "share": 0.004
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "energy_hearts_limits",
+   "share": 0.0363
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "learning_effectiveness",
+   "share": 0.0281
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "monetization_paywall",
+   "share": 0.0463
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "none",
+   "share": 0.7726
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "other",
+   "share": 0.0487
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "speech_recognition",
+   "share": 0.0155
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "streak_gamification",
+   "share": 0.0199
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "ui_redesign",
+   "share": 0.0199
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "ads",
+   "share": 0.0181
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "ai_features",
+   "share": 0.0111
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "bugs_performance",
+   "share": 0.0326
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "content_quality",
+   "share": 0.0616
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "customer_support",
+   "share": 0.0064
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "energy_hearts_limits",
+   "share": 0.0414
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "learning_effectiveness",
+   "share": 0.0216
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "monetization_paywall",
+   "share": 0.0423
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "none",
+   "share": 0.7498
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "other",
+   "share": 0.0477
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "speech_recognition",
+   "share": 0.0105
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "streak_gamification",
+   "share": 0.0352
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "ui_redesign",
+   "share": 0.0207
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "ads",
+   "share": 0.0374
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "ai_features",
+   "share": 0.0128
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "bugs_performance",
+   "share": 0.0452
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "content_quality",
+   "share": 0.0524
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "customer_support",
+   "share": 0.0079
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "energy_hearts_limits",
+   "share": 0.0343
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "learning_effectiveness",
+   "share": 0.0258
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "monetization_paywall",
+   "share": 0.0417
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "none",
+   "share": 0.7388
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "other",
+   "share": 0.0554
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "speech_recognition",
+   "share": 0.0062
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "streak_gamification",
+   "share": 0.03
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "ui_redesign",
+   "share": 0.0251
+  }
+ ],
+ "sentiment": [
+  {
+   "month": "2026-07",
+   "sentiment": "negative",
+   "share": 0.0976
+  },
+  {
+   "month": "2026-07",
+   "sentiment": "neutral",
+   "share": 0.0618
+  },
+  {
+   "month": "2026-07",
+   "sentiment": "positive",
+   "share": 0.8405
+  },
+  {
+   "month": "2026-08",
+   "sentiment": "negative",
+   "share": 0.1043
+  },
+  {
+   "month": "2026-08",
+   "sentiment": "neutral",
+   "share": 0.0753
+  },
+  {
+   "month": "2026-08",
+   "sentiment": "positive",
+   "share": 0.8205
+  },
+  {
+   "month": "2026-09",
+   "sentiment": "negative",
+   "share": 0.111
+  },
+  {
+   "month": "2026-09",
+   "sentiment": "neutral",
+   "share": 0.074
+  },
+  {
+   "month": "2026-09",
+   "sentiment": "positive",
+   "share": 0.815
+  },
+  {
+   "month": "2026-10",
+   "sentiment": "negative",
+   "share": 0.1191
+  },
+  {
+   "month": "2026-10",
+   "sentiment": "neutral",
+   "share": 0.1019
+  },
+  {
+   "month": "2026-10",
+   "sentiment": "positive",
+   "share": 0.779
+  },
+  {
+   "month": "2026-11",
+   "sentiment": "negative",
+   "share": 0.1274
+  },
+  {
+   "month": "2026-11",
+   "sentiment": "neutral",
+   "share": 0.069
+  },
+  {
+   "month": "2026-11",
+   "sentiment": "positive",
+   "share": 0.8036
+  }
+ ],
+ "churn_signal_share": 0.0175,
+ "churn_reasons": {
+  "monetization_paywall": 0.4284,
+  "content_quality": 0.2462,
+  "streak_gamification": 0.2196,
+  "other": 0.2175,
+  "ads": 0.2021,
+  "ui_redesign": 0.1797,
+  "energy_hearts_limits": 0.178,
+  "learning_effectiveness": 0.1342,
+  "bugs_performance": 0.1114,
+  "ai_features": 0.0911,
+  "speech_recognition": 0.058,
+  "customer_support": 0.0482
+ },
+ "competitors_named_by_duo_users": {
+  "Babbel": 7,
+  "Youtube": 3,
+  "Busuu": 3,
+  "Google Translate": 3,
+  "Brawl Stars": 3,
+  "Rosetta Stone": 3,
+  "Pimsleur": 2,
+  "Chatgpt": 2,
+  "Airlearn": 2,
+  "Kahoot": 1
+ },
+ "switchers_from_duolingo": {
+  "n": 194,
+  "by_app": {
+   "babbel": 72,
+   "speak": 66,
+   "busuu": 39,
+   "memrise": 17
+  },
+  "avg_stars_given_to_new_app": 4.59
+ },
+ "switcher_features": {
+  "lessons": 17,
+  "grammar explanations": 10,
+  "streak": 9,
+  "conversation practice": 8,
+  "vocabulary": 8,
+  "speaking practice": 8,
+  "grammar": 6,
+  "grammar lessons": 5,
+  "spanish course": 4,
+  "pronunciation": 4,
+  "pronunciation feedback": 3,
+  "dialogues": 3,
+  "videos": 3,
+  "phrases": 3,
+  "explanations": 3
+ },
+ "switcher_quotes": [
+  {
+   "app": "memrise",
+   "score": 5,
+   "content": "Excellent app and way of learning a language. I used Duolingo for many years and I prefer Memrise. It uses a lot of the same methods, but the videos and the AI chat are a great way to augment the learning, and the slightly less gamified approach is much less stressful than Duolin"
+  },
+  {
+   "app": "babbel",
+   "score": 5,
+   "content": "I've tried Duolingo (useless), Memrise, and Rosetta Stone (the best, but expensive and intense), but Babbel is my favorite. Babble is effective, engaging, and fun. Currently studying Italian. The lessons nicely combine memorization with grammar, so you learn words and also learn "
+  },
+  {
+   "app": "memrise",
+   "score": 5,
+   "content": "LOVE this app! do yourself a favor: delete Duolingo, and download Memrise! So nice to hear real native speakers pronouncing phrases, and most importantly, no ads interrupting the learning process!!! I will definitely be subscribing to the pro level out of sheer gratitude to this "
+  },
+  {
+   "app": "memrise",
+   "score": 5,
+   "content": "I only just started using this today, but it's amazing! I was learning Korean on Duolingo, but it was hard, and the owl was very threatening tbh. I found Memrise and decided to use it instead. I'm still going to use Duo for learning Hangeul (the Korean alphabet), but I'm definite"
+  },
+  {
+   "app": "busuu",
+   "score": 5,
+   "content": "I walked away from Duolingo after they introduced the energy system because I wasn't about to be forced to pay. I found Busuu as an alternative, and it's so much better. A lot more functionality, actual native speakers talking, grammatical explanations, the community helping each"
+  },
+  {
+   "app": "babbel",
+   "score": 5,
+   "content": "Coming from Duolingo and Rosetta Stone, this one is head and shoulder above. Also just found out that the phone version of the app has extensive features - it makes the app from the better to the BEST - under \"Practice,\" while only its sub-section \"Review\" is available in the tab"
+  },
+  {
+   "app": "busuu",
+   "score": 5,
+   "content": "I have been using Duolingo for several to learn french. Although it is designed to making language learning fun, however, I got far too frustrated because there is too little structure and explanation. I personally find Busuu is a lot better. After a couple of months, I now have "
+  },
+  {
+   "app": "babbel",
+   "score": 4,
+   "content": "Great program, I started off with Duolingo but switched to Babbel after 12 months as I found the voices and the game like structure annoying. I find Babbel is well structured and easy to use and aimed mainly towards the adult market. My only frustration is that at times it tries "
+  }
+ ],
+ "quotes": {
+  "content_quality": [
+   {
+    "score": 1,
+    "thumbsUpCount": 47,
+    "content": "At the end of each section you get a quiz where even a right answer is marked as wrong. You can look up the absolutely correct answer on the internet but Duo Lingo will mark it as wrong. There is no clue as to which translation it is demanding. And most annoyi"
+   },
+   {
+    "score": 1,
+    "thumbsUpCount": 46,
+    "content": "I might have given this app 3 or 4 stars at one point, but the quality has gone SO FAR downhill, the only reason I still use it, is because I HAVE learned a fair amount of Japanese from this app. Whatever AI they're using to make the lessons, went from okay-is"
+   },
+   {
+    "score": 2,
+    "thumbsUpCount": 39,
+    "content": "Not happy with how its going with this app. Changes over the years have impacted how enjoyable it is to learn, and although I'm learning single words, I would have no confidence in a conversation. The new introduction of having to 'pass' each level by translat"
+   }
+  ],
+  "other": [
+   {
+    "score": 1,
+    "thumbsUpCount": 87,
+    "content": "why did you have to go and change the limit on the lessons you can do per day instead of avoiding mistakes with the heart system. this just reeks of greed and a departure from the company's values and now they waste your time as much as possible with a million"
+   },
+   {
+    "score": 1,
+    "thumbsUpCount": 78,
+    "content": "oii, pfvv coloquei avalia\u00e7\u00e3o baixa s\u00f3 p vcs me notarem. fiz li\u00e7\u00f5es do duolingo no PC a ai mudei p cll e n recebi as pe\u00e7as do quebra cabe\u00e7a de halloween. hj \u00e9 o \u00faltimo dia e s\u00f3 falta uma pe\u00e7a p completar tudoo. pfvv como recupero pq no cll n aparece nada nem no"
+   },
+   {
+    "score": 1,
+    "thumbsUpCount": 47,
+    "content": "This app is like a bad relationship."
+   }
+  ],
+  "monetization_paywall": [
+   {
+    "score": 1,
+    "thumbsUpCount": 137,
+    "content": "Used to be a good, fun way to start learning a language. Now it's utterly unusable. Unless you pay for the subscription, of course. They shouldn't even be allowed to call this a free app. With their \"energy system\", you can't complete more than 2 lessons a day"
+   },
+   {
+    "score": 2,
+    "thumbsUpCount": 66,
+    "content": "It can help with language learning if you use it alongside other methods, but the trend to gamify the app with \"suits\", \"puzzle pieces\" and other meaningless additions that just require more key presses is extremely annoying. There is no way to opt out of thes"
+   },
+   {
+    "score": 1,
+    "thumbsUpCount": 59,
+    "content": "Getting increasingly difficult to use it as a non-super user (free). A few weeks ago it was still possible to replenish multiple hearts by doing special exercises. Then it got limited to one heart and now you have to either pay, get duolingo super or watch ads"
+   }
+  ],
+  "energy_hearts_limits": [
+   {
+    "score": 1,
+    "thumbsUpCount": 137,
+    "content": "Used to be a good, fun way to start learning a language. Now it's utterly unusable. Unless you pay for the subscription, of course. They shouldn't even be allowed to call this a free app. With their \"energy system\", you can't complete more than 2 lessons a day"
+   },
+   {
+    "score": 1,
+    "thumbsUpCount": 87,
+    "content": "why did you have to go and change the limit on the lessons you can do per day instead of avoiding mistakes with the heart system. this just reeks of greed and a departure from the company's values and now they waste your time as much as possible with a million"
+   },
+   {
+    "score": 1,
+    "thumbsUpCount": 59,
+    "content": "Getting increasingly difficult to use it as a non-super user (free). A few weeks ago it was still possible to replenish multiple hearts by doing special exercises. Then it got limited to one heart and now you have to either pay, get duolingo super or watch ads"
+   }
+  ],
+  "bugs_performance": [
+   {
+    "score": 1,
+    "thumbsUpCount": 78,
+    "content": "oii, pfvv coloquei avalia\u00e7\u00e3o baixa s\u00f3 p vcs me notarem. fiz li\u00e7\u00f5es do duolingo no PC a ai mudei p cll e n recebi as pe\u00e7as do quebra cabe\u00e7a de halloween. hj \u00e9 o \u00faltimo dia e s\u00f3 falta uma pe\u00e7a p completar tudoo. pfvv como recupero pq no cll n aparece nada nem no"
+   },
+   {
+    "score": 1,
+    "thumbsUpCount": 38,
+    "content": "This app is worthless and unusable. It's filled with bloat and interruptions. They fired all the humans and left the AI in charge. Since then, the accuracy of the translations has started to deteriorate. They never finished the Navajo course and don't even off"
+   },
+   {
+    "score": 1,
+    "thumbsUpCount": 37,
+    "content": "Recent update broke the Japanese course really badly. My progress got reset back a section and new sentences do not make any sense. Looks like the AI-powered enshittification has gone a step further."
+   }
+  ],
+  "ads": [
+   {
+    "score": 1,
+    "thumbsUpCount": 137,
+    "content": "Used to be a good, fun way to start learning a language. Now it's utterly unusable. Unless you pay for the subscription, of course. They shouldn't even be allowed to call this a free app. With their \"energy system\", you can't complete more than 2 lessons a day"
+   },
+   {
+    "score": 1,
+    "thumbsUpCount": 129,
+    "content": "seriously, remove the Temu adds because they are beyond frustrating."
+   },
+   {
+    "score": 1,
+    "thumbsUpCount": 59,
+    "content": "Getting increasingly difficult to use it as a non-super user (free). A few weeks ago it was still possible to replenish multiple hearts by doing special exercises. Then it got limited to one heart and now you have to either pay, get duolingo super or watch ads"
+   }
+  ]
+ },
+ "neg_features": {
+  "lessons": 166,
+  "energy": 127,
+  "streak": 111,
+  "hearts": 60,
+  "chess": 60,
+  "energy system": 58,
+  "subscription": 56,
+  "notifications": 45,
+  "ads": 43,
+  "gems": 39,
+  "streak freeze": 37,
+  "free trial": 30,
+  "chests": 25,
+  "app icon": 25,
+  "animations": 21
+ },
+ "competitor_pain_points": {
+  "babbel": {
+   "none": 0.404,
+   "monetization_paywall": 0.2,
+   "content_quality": 0.196,
+   "bugs_performance": 0.116,
+   "learning_effectiveness": 0.1
+  },
+  "busuu": {
+   "none": 0.739,
+   "monetization_paywall": 0.088,
+   "content_quality": 0.068,
+   "bugs_performance": 0.064,
+   "ads": 0.04
+  },
+  "memrise": {
+   "none": 0.524,
+   "other": 0.144,
+   "content_quality": 0.132,
+   "bugs_performance": 0.1,
+   "ui_redesign": 0.092
+  },
+  "speak": {
+   "none": 0.836,
+   "content_quality": 0.064,
+   "monetization_paywall": 0.052,
+   "other": 0.028,
+   "bugs_performance": 0.012
+  }
+ },
+ "competitor_sentiment": {
+  "babbel": {
+   "negative": 0.46,
+   "neutral": 0.104,
+   "positive": 0.436
+  },
+  "busuu": {
+   "negative": 0.12,
+   "neutral": 0.1,
+   "positive": 0.779
+  },
+  "memrise": {
+   "negative": 0.356,
+   "neutral": 0.068,
+   "positive": 0.576
+  },
+  "speak": {
+   "negative": 0.056,
+   "neutral": 0.048,
+   "positive": 0.896
+  }
+ },
+ "release_mix": [
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "ads",
+   "share": 0.1315
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "ai_features",
+   "share": 0.0583
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "bugs_performance",
+   "share": 0.208
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "content_quality",
+   "share": 0.2259
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "customer_support",
+   "share": 0.0684
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "energy_hearts_limits",
+   "share": 0.0934
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "learning_effectiveness",
+   "share": 0.1035
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "monetization_paywall",
+   "share": 0.2802
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "none",
+   "share": 0.0619
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "other",
+   "share": 0.192
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "speech_recognition",
+   "share": 0.0489
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "streak_gamification",
+   "share": 0.1987
+  },
+  {
+   "release": "6.102\u20136.105 (Oct 19\u2013Nov 15)",
+   "pain_points": "ui_redesign",
+   "share": 0.1476
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "ads",
+   "share": 0.1482
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "ai_features",
+   "share": 0.117
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "bugs_performance",
+   "share": 0.147
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "content_quality",
+   "share": 0.1938
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "energy_hearts_limits",
+   "share": 0.1626
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "learning_effectiveness",
+   "share": 0.2133
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "monetization_paywall",
+   "share": 0.3653
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "none",
+   "share": 0.0156
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "other",
+   "share": 0.1677
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "speech_recognition",
+   "share": 0.0637
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "streak_gamification",
+   "share": 0.1807
+  },
+  {
+   "release": "6.106 (Nov 16)",
+   "pain_points": "ui_redesign",
+   "share": 0.1964
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "ads",
+   "share": 0.1273
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "ai_features",
+   "share": 0.0799
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "bugs_performance",
+   "share": 0.1886
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "content_quality",
+   "share": 0.2134
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "customer_support",
+   "share": 0.0412
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "energy_hearts_limits",
+   "share": 0.1366
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "learning_effectiveness",
+   "share": 0.1322
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "monetization_paywall",
+   "share": 0.2404
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "none",
+   "share": 0.0909
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "other",
+   "share": 0.1852
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "speech_recognition",
+   "share": 0.0414
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "streak_gamification",
+   "share": 0.1016
+  },
+  {
+   "release": "\u2264 6.101 (Jul\u2013Oct 18)",
+   "pain_points": "ui_redesign",
+   "share": 0.0793
+  }
+ ],
+ "release_neg_n": {
+  "6.102\u20136.105 (Oct 19\u2013Nov 15)": 270,
+  "6.106 (Nov 16)": 61,
+  "\u2264 6.101 (Jul\u2013Oct 18)": 1402
+ },
+ "neg_month_mix": [
+  {
+   "month": "2026-07",
+   "pain_point": "streak_gamification",
+   "share": 0.0755
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "monetization_paywall",
+   "share": 0.218
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "ui_redesign",
+   "share": 0.0582
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "bugs_performance",
+   "share": 0.1983
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "energy_hearts_limits",
+   "share": 0.1463
+  },
+  {
+   "month": "2026-07",
+   "pain_point": "ai_features",
+   "share": 0.0844
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "streak_gamification",
+   "share": 0.0816
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "monetization_paywall",
+   "share": 0.2321
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "ui_redesign",
+   "share": 0.0648
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "bugs_performance",
+   "share": 0.1839
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "energy_hearts_limits",
+   "share": 0.1468
+  },
+  {
+   "month": "2026-08",
+   "pain_point": "ai_features",
+   "share": 0.0725
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "streak_gamification",
+   "share": 0.1133
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "monetization_paywall",
+   "share": 0.2577
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "ui_redesign",
+   "share": 0.1009
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "bugs_performance",
+   "share": 0.1814
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "energy_hearts_limits",
+   "share": 0.1587
+  },
+  {
+   "month": "2026-09",
+   "pain_point": "ai_features",
+   "share": 0.0883
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "streak_gamification",
+   "share": 0.1588
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "monetization_paywall",
+   "share": 0.2691
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "ui_redesign",
+   "share": 0.1002
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "bugs_performance",
+   "share": 0.2084
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "energy_hearts_limits",
+   "share": 0.091
+  },
+  {
+   "month": "2026-10",
+   "pain_point": "ai_features",
+   "share": 0.0644
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "streak_gamification",
+   "share": 0.1554
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "monetization_paywall",
+   "share": 0.2641
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "ui_redesign",
+   "share": 0.1373
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "bugs_performance",
+   "share": 0.1803
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "energy_hearts_limits",
+   "share": 0.1122
+  },
+  {
+   "month": "2026-11",
+   "pain_point": "ai_features",
+   "share": 0.0836
+  }
+ ]
+};
+const $ = s => document.querySelector(s), NS = 'http://www.w3.org/2000/svg', tip = $('#tip');
+const pct = (x,d=1) => (x*100).toFixed(d)+'%', fmt = n => n.toLocaleString('en-US');
+function el(t,a={},p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e}
+function hover(n,h){n.addEventListener('mousemove',e=>{tip.innerHTML=h;tip.style.opacity=1;tip.style.left=Math.min(e.clientX+12,innerWidth-270)+'px';tip.style.top=(e.clientY+12)+'px'});n.addEventListener('mouseleave',()=>tip.style.opacity=0)}
+function hbar(s,x,y,w,h,f){const r=Math.min(4,w/2,h/2);return el('path',{d:`M${x},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h-r}Q${x+w},${y+h} ${x+w-r},${y+h}H${x}Z`,fill:f},s)}
+const LABEL = {monetization_paywall:'Monetization / paywall',content_quality:'Content quality',streak_gamification:'Streak pressure',ads:'Ads',ui_redesign:'Reward clutter / UI changes',energy_hearts_limits:'Energy / hearts limits',learning_effectiveness:'Learning effectiveness',bugs_performance:'Bugs / performance',ai_features:'AI features',speech_recognition:'Speech recognition',customer_support:'Customer support',other:'Other'};
+
+// KPIs
+const duo = D.apps.find(a=>a.app==='duolingo'), total = D.apps.reduce((s,a)=>s+a.reviews,0);
+[[fmt(total),'reviews scraped'],[fmt(D.n_labeled),'LLM-tagged'],[duo.avg_stars.toFixed(2)+'★','Duolingo avg rating'],[fmt(D.switchers_from_duolingo.n),'reviews from ex-Duolingo users']]
+ .forEach(([v,l])=>$('#kpis').insertAdjacentHTML('beforeend',`<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`));
+
+// Versions: vertical bars of 1-star share
+(function(){
+  const V=D.versions, W=1000, H=230, pl=40, pb=34, n=V.length, bw=(W-pl)/n, max=0.08;
+  const s=el('svg',{viewBox:`0 0 ${W} ${H}`},$('#versions'));
+  [0,.02,.04,.06,.08].forEach(t=>{const y=H-pb-(t/max)*(H-pb-10);el('line',{x1:pl,x2:W,y1:y,y2:y,class:'gl'},s);el('text',{x:pl-6,y:y+4,'text-anchor':'end'},s).textContent=pct(t,0)});
+  V.forEach((v,i)=>{const h=(v.one/max)*(H-pb-10), x=pl+i*bw+2, y=H-pb-h, last=i===n-1, r=Math.min(4,(bw-4)/2);
+    el('path',{d:`M${x},${H-pb}V${y+r}Q${x},${y} ${x+r},${y}H${x+bw-4-r}Q${x+bw-4},${y} ${x+bw-4},${y+r}V${H-pb}Z`,fill:last?'var(--series-2)':'var(--series-1)'},s);
+    if(i%2===0||last) el('text',{x:x+(bw-4)/2,y:H-pb+16,'text-anchor':'middle'},s).textContent=v.vkey;
+    if(last) el('text',{x:x+(bw-4)/2,y:y-6,'text-anchor':'middle',class:'val'},s).textContent=pct(v.one);
+    hover(el('rect',{x:pl+i*bw,y:0,width:bw,height:H-pb,fill:'transparent'},s),`<b>v${v.vkey}</b> · first seen ${v.first_seen}<br>${fmt(v.n)} reviews · avg ${v.avg.toFixed(2)}★<br>1-star share ${pct(v.one,2)}`)});
+  const l=V[n-1], early=V.slice(0,12); $('#verTake').innerHTML=`Release <b>${l.vkey}</b> (first seen ${l.first_seen}) has a 1-star share of <b>${pct(l.one)}</b>, the highest of the period, against ${pct(Math.min(...early.map(v=>v.one)))}–${pct(Math.max(...early.map(v=>v.one)))} for July–September releases. In its negative reviews, the share citing monetization and reward clutter both rose (61 tagged reviews, so treat it as directional).`;
+})();
+
+// Trend lines
+(function(){
+  const keys=[['streak_gamification','var(--series-1)'],['ui_redesign','var(--series-2)'],['monetization_paywall','var(--series-3)']];
+  const T=D.neg_month_mix, months=[...new Set(T.map(t=>t.month))].sort(), W=1000,H=240,pl=40,pr=190,pb=28, max=0.3;
+  keys.forEach(([k,c])=>$('#trendLegend').insertAdjacentHTML('beforeend',`<span><i style="background:${c}"></i>${LABEL[k]}</span>`));
+  const s=el('svg',{viewBox:`0 0 ${W} ${H}`},$('#trend')), X=i=>pl+i*(W-pl-pr)/(months.length-1), Y=v=>H-pb-(v/max)*(H-pb-10);
+  [0,.1,.2,.3].forEach(t=>{el('line',{x1:pl,x2:W-pr,y1:Y(t),y2:Y(t),class:'gl'},s);el('text',{x:pl-6,y:Y(t)+4,'text-anchor':'end'},s).textContent=pct(t,0)});
+  months.forEach((m,i)=>el('text',{x:X(i),y:H-8,'text-anchor':'middle'},s).textContent=new Date(m+'-15').toLocaleString('en-US',{month:'short'}));
+  keys.forEach(([k,c])=>{const pts=months.map((m,i)=>[X(i),Y(T.find(t=>t.month===m&&t.pain_point===k).share)]);
+    el('polyline',{points:pts.map(p=>p.join(',')).join(' '),fill:'none',stroke:c,'stroke-width':2,'stroke-linejoin':'round'},s);
+    pts.forEach(p=>el('circle',{cx:p[0],cy:p[1],r:4,fill:c,stroke:'var(--surface-1)','stroke-width':2},s));
+    const lv=T.find(t=>t.month===months.at(-1)&&t.pain_point===k).share; el('text',{x:W-pr+10,y:pts.at(-1)[1]+4,class:'val'},s).textContent=pct(lv)+'  '+LABEL[k].split(' /')[0]});
+  months.forEach((m,i)=>hover(el('rect',{x:X(i)-40,y:0,width:80,height:H-pb,fill:'transparent'},s),`<b>${m}</b><br>`+keys.map(([k])=>`${LABEL[k]}: ${pct(T.find(t=>t.month===m&&t.pain_point===k).share)}`).join('<br>')));
+})();
+
+// Churn reasons
+(function(){
+  $('#churnShare').textContent=pct(D.churn_signal_share,2);
+  const R=Object.entries(D.churn_reasons).filter(([k])=>k!=='other'&&k!=='none').slice(0,7), W=480,rowH=30,lab=170, s=el('svg',{viewBox:`0 0 ${W} ${R.length*rowH}`},$('#churn'));
+  const max=R[0][1], sc=(W-lab-50)/max;
+  R.forEach(([k,v],i)=>{const y=i*rowH+3,w=v*sc; el('text',{x:0,y:y+15},s).textContent=LABEL[k]; hbar(s,lab,y,w,20,i===0?'var(--series-2)':'var(--series-1)'); el('text',{x:lab+w+6,y:y+15,class:'val'},s).textContent=pct(v,0);
+    hover(el('rect',{x:0,y,width:W,height:rowH-4,fill:'transparent'},s),`<b>${LABEL[k]}</b><br>cited in ${pct(v)} of churn-intent reviews`)});
+})();
+
+// Destinations
+(function(){
+  const B=Object.entries(D.switchers_from_duolingo.by_app), W=480,rowH=34,lab=80, s=el('svg',{viewBox:`0 0 ${W} ${B.length*rowH}`},$('#dest'));
+  const max=B[0][1], sc=(W-lab-60)/max, name=a=>a[0].toUpperCase()+a.slice(1);
+  B.forEach(([a,n],i)=>{const y=i*rowH+3,w=n*sc; el('text',{x:0,y:y+16},s).textContent=name(a); hbar(s,lab,y,w,22,'var(--series-1)'); el('text',{x:lab+w+6,y:y+16,class:'val'},s).textContent=n});
+})();
+
+// Competitor table
+(function(){
+  const C=D.competitor_pain_points, S=D.competitor_sentiment;
+  let h='<tr><th>App</th><th>Avg ★ (recent)</th><th>Negative share</th><th style="text-align:left">Top pain points</th></tr>';
+  D.apps.filter(a=>a.app!=='duolingo').sort((a,b)=>b.avg_stars-a.avg_stars).forEach(a=>{
+    const pp=Object.entries(C[a.app]).filter(([k])=>k!=='none'&&k!=='other').slice(0,3).map(([k,v])=>`${LABEL[k]} ${pct(v,0)}`).join(' · ');
+    h+=`<tr><td>${a.app[0].toUpperCase()+a.app.slice(1)}</td><td>${a.avg_stars.toFixed(2)}</td><td>${pct(S[a.app].negative,0)}</td><td style="text-align:left">${pp}</td></tr>`});
+  $('#comp').innerHTML=h;
+})();
+
+// Quotes (one per theme, de-duplicated)
+(function(){
+  const seen=new Set(); Object.entries(D.quotes).filter(([k])=>k!=='other').forEach(([k,qs])=>{
+    const q=qs.find(q=>!seen.has(q.content)&&/\b(the|and|is)\b/i.test(q.content)); if(!q) return; seen.add(q.content);
+    const t=q.content.length>170?q.content.slice(0,170).replace(/\s\S*$/,'')+'…':q.content;
+    $('#quotes').insertAdjacentHTML('beforeend',`<div class="q"><b>${LABEL[k]} · ${q.score}★ · ${q.thumbsUpCount} upvotes</b>“${t.replace(/</g,'&lt;')}”</div>`)});
+})();
+</script>
+</body>
+</html>

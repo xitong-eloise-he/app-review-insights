@@ -1,0 +1,6 @@
+data/raw/
+data/reviews.parquet
+data/sample.jsonl
+__pycache__/
+.DS_Store
+.env

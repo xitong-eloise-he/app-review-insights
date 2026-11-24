@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Duolingo Churn Signals</title>
+<meta name="description" content="Why Duolingo users leave for other apps: 174k Google Play reviews, LLM-tagged pain points tracked by release, competitor comparison, and a PRD.">
+<style>
+:root{
+  color-scheme:light;
+  --bg:#f6f6f4; --surface-1:#fcfcfb; --line:#e4e3df; --grid:#ecebe7;
+  --text-primary:#0b0b0b; --text-secondary:#52514e; --text-muted:#85847f;
+  --series-1:#2a78d6; --series-2:#eb6834; --series-3:#1baf7a; --accent:#2a78d6; --crit:#c4362f;
+}
+@media (prefers-color-scheme:dark){
+  :root:where(:not([data-theme="light"])){
+    color-scheme:dark;
+    --bg:#121211; --surface-1:#1a1a19; --line:#2c2c2a; --grid:#262624;
+    --text-primary:#f0efec; --text-secondary:#c3c2b7; --text-muted:#8f8e86;
+    --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --accent:#3987e5; --crit:#e66767;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#121211; --surface-1:#1a1a19; --line:#2c2c2a; --grid:#262624;
+  --text-primary:#f0efec; --text-secondary:#c3c2b7; --text-muted:#8f8e86;
+  --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --accent:#3987e5; --crit:#e66767;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text-primary);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:32px 16px 64px}
+h1{font-size:28px;margin:0 0 6px;letter-spacing:-.01em}
+header p{margin:0;color:var(--text-secondary);max-width:760px}
+.meta{font-size:13px;color:var(--text-muted);margin-top:8px}
+.meta a,footer a,.links a{color:var(--accent)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0}
+.kpi{background:var(--surface-1);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi .v{font-size:24px;font-weight:650;font-variant-numeric:tabular-nums}
+.kpi .l{font-size:12px;color:var(--text-secondary)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{background:var(--surface-1);border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}
+.wide{grid-column:1/-1}
+.card h2{font-size:16px;margin:0 0 2px}
+.sub{font-size:13px;color:var(--text-secondary);margin:0 0 12px}
+.take{font-size:13px;border-left:3px solid var(--accent);padding:2px 0 2px 10px;margin:12px 0 0}
+svg{display:block;width:100%;height:auto;overflow:visible}
+svg text{fill:var(--text-secondary);font-size:12px}
+svg .val{fill:var(--text-primary);font-weight:600;font-variant-numeric:tabular-nums}
+svg .gl{stroke:var(--grid)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--text-secondary);margin-bottom:6px}
+.legend i{display:inline-block;width:12px;height:3px;border-radius:2px;margin-right:6px;vertical-align:3px}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{text-align:right;padding:6px 8px;border-bottom:1px solid var(--grid)}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--text-secondary);font-weight:600}
+.quotes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.q{font-size:13px;background:var(--bg);border-radius:10px;padding:10px 12px;color:var(--text-secondary)}
+.q b{color:var(--text-primary);font-size:12px;display:block;margin-bottom:2px}
+.prd{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px}
+.comp{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px}
+.comp .tag{font-size:11px;font-weight:700;color:var(--accent)}
+.comp h3{font-size:14px;margin:2px 0 4px}
+.comp p{margin:0;color:var(--text-secondary)}
+.links{margin-top:14px;font-size:14px;display:flex;gap:18px;flex-wrap:wrap}
+#tip{position:fixed;pointer-events:none;background:var(--text-primary);color:var(--surface-1);font-size:12px;padding:6px 8px;border-radius:6px;opacity:0;z-index:9;max-width:260px}
+footer{margin-top:28px;font-size:12.5px;color:var(--text-muted)}
+@media (max-width:820px){.grid,.quotes{grid-template-columns:1fr}.kpis,.prd{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Why do Duolingo users leave for other apps?</h1>
+  <p>174k Google Play reviews, a 6.2k stratified sample tagged by an LLM for pain points, sentiment and switching intent, tracked by release and compared with Babbel, Busuu, Memrise and Speak. The findings feed a PRD.</p>
+  <div class="meta">Duolingo reviews 2026-07-14 → 2026-11-23 · tagging: Claude Haiku 5.5 · <a href="https://github.com/xitong-eloise-he/app-review-insights">code</a></div>
+</header>
+
+<section class="kpis" id="kpis"></section>
+
+<div class="grid">
+  <section class="card wide">
+    <h2>1-star share by release</h2>
+    <p class="sub">All Duolingo reviews, releases with ≥ 300 reviews, in release order.</p>
+    <div id="versions"></div>
+    <p class="take" id="verTake"></p>
+  </section>
+
+  <section class="card wide">
+    <h2>What negative reviews complain about, by month</h2>
+    <p class="sub">Share of ≤ 2★ Duolingo reviews citing each theme (LLM tags, re-weighted to the full population).</p>
+    <div class="legend" id="trendLegend"></div>
+    <div id="trend"></div>
+    <p class="take">Streak complaints doubled and reward-clutter complaints more than doubled between July and November, while monetization stayed the single largest theme.</p>
+  </section>
+
+  <section class="card">
+    <h2>Why users say they're leaving</h2>
+    <p class="sub">Reviews tagged "switched away" or "considering leaving" (<span id="churnShare"></span> of all reviews). Reasons can overlap.</p>
+    <div id="churn"></div>
+  </section>
+
+  <section class="card">
+    <h2>Where switchers go</h2>
+    <p class="sub">Competitor reviews written by people who say they came from Duolingo.</p>
+    <div id="dest"></div>
+    <p class="take">What they praise: <b>grammar explanations</b>, <b>speaking / conversation practice</b>, structured lessons, native-speaker audio, fewer ads and less gamification.</p>
+  </section>
+
+  <section class="card wide">
+    <h2>Competitors: what's wrong with the alternatives</h2>
+    <p class="sub">250 random recent reviews per competitor, same tagging.</p>
+    <div style="overflow-x:auto"><table id="comp"></table></div>
+    <p class="take">Babbel attracts the most switchers but has the angriest reviews of its own, mostly about price. Duolingo can win these users back with a better free learning experience. It doesn't have to match Babbel's prices.</p>
+  </section>
+
+  <section class="card wide">
+    <h2>In their words</h2>
+    <p class="sub">Most-upvoted negative reviews per theme (excerpts).</p>
+    <div class="quotes" id="quotes"></div>
+  </section>
+
+  <section class="card wide">
+    <h2>PRD: Focus Mode, a learning-first Duolingo for committed learners</h2>
+    <p class="sub">Opt-in setting for free users with a 30+ day streak. Primary metric: D30 retention (+1 pp). Guardrails: Super conversion, revenue per DAU. A/B test, about 32.7k users per arm.</p>
+    <div class="prd">
+      <div class="comp"><span class="tag">P0</span><h3>Quiet rewards</h3><p>Chests, puzzle pieces and animations collapse into one summary card.</p></div>
+      <div class="comp"><span class="tag">P0</span><h3>Streak you can trust</h3><p>A freeze is used only if no lesson is logged on any device, and the app shows which lesson counted.</p></div>
+      <div class="comp"><span class="tag">P1</span><h3>Free "why?"</h3><p>3 grammar explanations a day on mistakes, plus a tip card at the start of each unit.</p></div>
+      <div class="comp"><span class="tag">P1</span><h3>Free practice</h3><p>Reviewing completed material doesn't cost energy.</p></div>
+    </div>
+    <div class="links"><a href="https://github.com/xitong-eloise-he/app-review-insights/blob/main/docs/PRD.md">Read the full PRD →</a><a href="https://github.com/xitong-eloise-he/app-review-insights/blob/main/docs/competitive_analysis.md">Competitive analysis →</a></div>
+  </section>
+</div>
+
+<footer>Reviews skew negative and toward vocal users, so they show <i>why</i> users leave, not <i>how many</i>. The PRD measures success with product metrics. Portfolio project; not affiliated with Duolingo.</footer>
+</div>
+<div id="tip"></div>
+<script>
+const D = /*__DATA__*/null;
+const $ = s => document.querySelector(s), NS = 'http://www.w3.org/2000/svg', tip = $('#tip');
+const pct = (x,d=1) => (x*100).toFixed(d)+'%', fmt = n => n.toLocaleString('en-US');
+function el(t,a={},p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e}
+function hover(n,h){n.addEventListener('mousemove',e=>{tip.innerHTML=h;tip.style.opacity=1;tip.style.left=Math.min(e.clientX+12,innerWidth-270)+'px';tip.style.top=(e.clientY+12)+'px'});n.addEventListener('mouseleave',()=>tip.style.opacity=0)}
+function hbar(s,x,y,w,h,f){const r=Math.min(4,w/2,h/2);return el('path',{d:`M${x},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h-r}Q${x+w},${y+h} ${x+w-r},${y+h}H${x}Z`,fill:f},s)}
+const LABEL = {monetization_paywall:'Monetization / paywall',content_quality:'Content quality',streak_gamification:'Streak pressure',ads:'Ads',ui_redesign:'Reward clutter / UI changes',energy_hearts_limits:'Energy / hearts limits',learning_effectiveness:'Learning effectiveness',bugs_performance:'Bugs / performance',ai_features:'AI features',speech_recognition:'Speech recognition',customer_support:'Customer support',other:'Other'};
+
+// KPIs
+const duo = D.apps.find(a=>a.app==='duolingo'), total = D.apps.reduce((s,a)=>s+a.reviews,0);
+[[fmt(total),'reviews scraped'],[fmt(D.n_labeled),'LLM-tagged'],[duo.avg_stars.toFixed(2)+'★','Duolingo avg rating'],[fmt(D.switchers_from_duolingo.n),'reviews from ex-Duolingo users']]
+ .forEach(([v,l])=>$('#kpis').insertAdjacentHTML('beforeend',`<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`));
+
+// Versions: vertical bars of 1-star share
+(function(){
+  const V=D.versions, W=1000, H=230, pl=40, pb=34, n=V.length, bw=(W-pl)/n, max=0.08;
+  const s=el('svg',{viewBox:`0 0 ${W} ${H}`},$('#versions'));
+  [0,.02,.04,.06,.08].forEach(t=>{const y=H-pb-(t/max)*(H-pb-10);el('line',{x1:pl,x2:W,y1:y,y2:y,class:'gl'},s);el('text',{x:pl-6,y:y+4,'text-anchor':'end'},s).textContent=pct(t,0)});
+  V.forEach((v,i)=>{const h=(v.one/max)*(H-pb-10), x=pl+i*bw+2, y=H-pb-h, last=i===n-1, r=Math.min(4,(bw-4)/2);
+    el('path',{d:`M${x},${H-pb}V${y+r}Q${x},${y} ${x+r},${y}H${x+bw-4-r}Q${x+bw-4},${y} ${x+bw-4},${y+r}V${H-pb}Z`,fill:last?'var(--series-2)':'var(--series-1)'},s);
+    if(i%2===0||last) el('text',{x:x+(bw-4)/2,y:H-pb+16,'text-anchor':'middle'},s).textContent=v.vkey;
+    if(last) el('text',{x:x+(bw-4)/2,y:y-6,'text-anchor':'middle',class:'val'},s).textContent=pct(v.one);
+    hover(el('rect',{x:pl+i*bw,y:0,width:bw,height:H-pb,fill:'transparent'},s),`<b>v${v.vkey}</b> · first seen ${v.first_seen}<br>${fmt(v.n)} reviews · avg ${v.avg.toFixed(2)}★<br>1-star share ${pct(v.one,2)}`)});
+  const l=V[n-1], early=V.slice(0,12); $('#verTake').innerHTML=`Release <b>${l.vkey}</b> (first seen ${l.first_seen}) has a 1-star share of <b>${pct(l.one)}</b>, the highest of the period, against ${pct(Math.min(...early.map(v=>v.one)))}–${pct(Math.max(...early.map(v=>v.one)))} for July–September releases. In its negative reviews, the share citing monetization and reward clutter both rose (61 tagged reviews, so treat it as directional).`;
+})();
+
+// Trend lines
+(function(){
+  const keys=[['streak_gamification','var(--series-1)'],['ui_redesign','var(--series-2)'],['monetization_paywall','var(--series-3)']];
+  const T=D.neg_month_mix, months=[...new Set(T.map(t=>t.month))].sort(), W=1000,H=240,pl=40,pr=190,pb=28, max=0.3;
+  keys.forEach(([k,c])=>$('#trendLegend').insertAdjacentHTML('beforeend',`<span><i style="background:${c}"></i>${LABEL[k]}</span>`));
+  const s=el('svg',{viewBox:`0 0 ${W} ${H}`},$('#trend')), X=i=>pl+i*(W-pl-pr)/(months.length-1), Y=v=>H-pb-(v/max)*(H-pb-10);
+  [0,.1,.2,.3].forEach(t=>{el('line',{x1:pl,x2:W-pr,y1:Y(t),y2:Y(t),class:'gl'},s);el('text',{x:pl-6,y:Y(t)+4,'text-anchor':'end'},s).textContent=pct(t,0)});
+  months.forEach((m,i)=>el('text',{x:X(i),y:H-8,'text-anchor':'middle'},s).textContent=new Date(m+'-15').toLocaleString('en-US',{month:'short'}));
+  keys.forEach(([k,c])=>{const pts=months.map((m,i)=>[X(i),Y(T.find(t=>t.month===m&&t.pain_point===k).share)]);
+    el('polyline',{points:pts.map(p=>p.join(',')).join(' '),fill:'none',stroke:c,'stroke-width':2,'stroke-linejoin':'round'},s);
+    pts.forEach(p=>el('circle',{cx:p[0],cy:p[1],r:4,fill:c,stroke:'var(--surface-1)','stroke-width':2},s));
+    const lv=T.find(t=>t.month===months.at(-1)&&t.pain_point===k).share; el('text',{x:W-pr+10,y:pts.at(-1)[1]+4,class:'val'},s).textContent=pct(lv)+'  '+LABEL[k].split(' /')[0]});
+  months.forEach((m,i)=>hover(el('rect',{x:X(i)-40,y:0,width:80,height:H-pb,fill:'transparent'},s),`<b>${m}</b><br>`+keys.map(([k])=>`${LABEL[k]}: ${pct(T.find(t=>t.month===m&&t.pain_point===k).share)}`).join('<br>')));
+})();
+
+// Churn reasons
+(function(){
+  $('#churnShare').textContent=pct(D.churn_signal_share,2);
+  const R=Object.entries(D.churn_reasons).filter(([k])=>k!=='other'&&k!=='none').slice(0,7), W=480,rowH=30,lab=170, s=el('svg',{viewBox:`0 0 ${W} ${R.length*rowH}`},$('#churn'));
+  const max=R[0][1], sc=(W-lab-50)/max;
+  R.forEach(([k,v],i)=>{const y=i*rowH+3,w=v*sc; el('text',{x:0,y:y+15},s).textContent=LABEL[k]; hbar(s,lab,y,w,20,i===0?'var(--series-2)':'var(--series-1)'); el('text',{x:lab+w+6,y:y+15,class:'val'},s).textContent=pct(v,0);
+    hover(el('rect',{x:0,y,width:W,height:rowH-4,fill:'transparent'},s),`<b>${LABEL[k]}</b><br>cited in ${pct(v)} of churn-intent reviews`)});
+})();
+
+// Destinations
+(function(){
+  const B=Object.entries(D.switchers_from_duolingo.by_app), W=480,rowH=34,lab=80, s=el('svg',{viewBox:`0 0 ${W} ${B.length*rowH}`},$('#dest'));
+  const max=B[0][1], sc=(W-lab-60)/max, name=a=>a[0].toUpperCase()+a.slice(1);
+  B.forEach(([a,n],i)=>{const y=i*rowH+3,w=n*sc; el('text',{x:0,y:y+16},s).textContent=name(a); hbar(s,lab,y,w,22,'var(--series-1)'); el('text',{x:lab+w+6,y:y+16,class:'val'},s).textContent=n});
+})();
+
+// Competitor table
+(function(){
+  const C=D.competitor_pain_points, S=D.competitor_sentiment;
+  let h='<tr><th>App</th><th>Avg ★ (recent)</th><th>Negative share</th><th style="text-align:left">Top pain points</th></tr>';
+  D.apps.filter(a=>a.app!=='duolingo').sort((a,b)=>b.avg_stars-a.avg_stars).forEach(a=>{
+    const pp=Object.entries(C[a.app]).filter(([k])=>k!=='none'&&k!=='other').slice(0,3).map(([k,v])=>`${LABEL[k]} ${pct(v,0)}`).join(' · ');
+    h+=`<tr><td>${a.app[0].toUpperCase()+a.app.slice(1)}</td><td>${a.avg_stars.toFixed(2)}</td><td>${pct(S[a.app].negative,0)}</td><td style="text-align:left">${pp}</td></tr>`});
+  $('#comp').innerHTML=h;
+})();
+
+// Quotes (one per theme, de-duplicated)
+(function(){
+  const seen=new Set(); Object.entries(D.quotes).filter(([k])=>k!=='other').forEach(([k,qs])=>{
+    const q=qs.find(q=>!seen.has(q.content)&&/\b(the|and|is)\b/i.test(q.content)); if(!q) return; seen.add(q.content);
+    const t=q.content.length>170?q.content.slice(0,170).replace(/\s\S*$/,'')+'…':q.content;
+    $('#quotes').insertAdjacentHTML('beforeend',`<div class="q"><b>${LABEL[k]} · ${q.score}★ · ${q.thumbsUpCount} upvotes</b>“${t.replace(/</g,'&lt;')}”</div>`)});
+})();
+</script>
+</body>
+</html>
